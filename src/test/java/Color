@@ -1,0 +1,15 @@
+public enum Color {
+
+        // enum values for cells
+        RED(1,"Red"),
+        BLACK(2,"Black"),
+        EMPTY(0,"Empty"),
+        INV(-1,"Invisible"); //for out of bounds of the hexboard values in the matrix
+
+        private final int nr;
+        private final String cname;
+
+        Color(int nr, String cname) {  //constructor for enum values
+            this.nr = nr;
+            this.cname = cname;
+        }}
