@@ -84,7 +84,7 @@
             <artifactId>exec-maven-plugin</artifactId>
             <version>3.6.2</version>
             <configuration>
-                <mainClass>AI.TestForward</mainClass>
+                <mainClass>AI.sim.HexSimulator</mainClass>
             </configuration>
             </plugin>
         </plugins>
