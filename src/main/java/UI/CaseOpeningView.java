@@ -63,10 +63,8 @@ class CaseOpeningView {
     private StackPane viewport;       // clipped view window
     private Group overlay;            // particles / pointer / banners
     private Button openBtn;
-
     private List<Item> baseItems;     // original item list (one set)
     private List<Node> tileNodes;     // nodes in the track, parallel to repeated items
-
     private Timeline spinTl;          // main spin animation
 
     // Public factory for embedding into a Scene or container

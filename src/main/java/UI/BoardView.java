@@ -27,7 +27,6 @@ import Game.Player;
  * </ul>
  */
 public class BoardView extends Pane{
-    private Label statusLabel = new Label(); // Label to show current player's turn
     private final int boardSize; // Number of hexagons along one edge of the board
     private final double hexSize; // Size of each hexagon
     private final Polygon[][] hexCells; // 2D array to hold hexagon shapes
@@ -189,14 +188,11 @@ public class BoardView extends Pane{
      * @return the corresponding Paint object for rendering
     */
     private Paint paintForColor(Color color){
-        switch(color){
-            case RED:
-                return Paint.valueOf("RED");
-            case BLACK:
-                return Paint.valueOf("BLACK");
-            default:
-                return Paint.valueOf("LIGHTGRAY");
-        }
+        return switch (color) {
+            case RED -> Paint.valueOf("RED");
+            case BLACK -> Paint.valueOf("BLACK");
+            default -> Paint.valueOf("LIGHTGRAY");
+        };
     }
 
     /**

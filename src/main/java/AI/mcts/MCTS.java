@@ -1,52 +1,55 @@
 package AI.mcts;
 
-import java.util.Arrays;
+import AI.mcts.HexGame.GameState;
+import AI.mcts.Steps.Backpropagation;
+import AI.mcts.Steps.Expansion;
+import AI.mcts.Steps.Selection;
+import AI.mcts.Steps.SimulationStep.*;
+import AI.mcts.Optimazation.*;
 
-public final class MCTS<S> {
-    private final MctsGame<S> game;
-    private final MctsArgs args;
+public final class MCTS {
+    private final Selection selection;
+    private final Expansion expansion;
+    private final Backpropagation backprop;
+    private final Simulation simulation;
 
-    public MCTS(MctsGame<S> game, MctsArgs args) {
-        this.game = game;
-        this.args = args;
+    private final int iterations;
+
+    // added constructor for pruner
+    public MCTS(int iterations, Selection selection, Expansion expansion, Simulation simulation) {
+        this.iterations = iterations;
+        this.selection = selection;
+        this.expansion = expansion;
+        this.backprop = new Backpropagation();
+        this.simulation = simulation;
     }
 
-    public double[] search (S root_state) {
-        Node<S> root = new Node<>(game, args, root_state, null, null);
-
-        for (int search = 0; search < args.numSearches; search++) {
-            Node<S> node = root;
-
-            while (node.isFullyExpanded()){
-                node = node.select();
-            }
-
-            Outcome outcome = game.valueAndTerminated(node.state, node.action_taken);
-            double value = game.opponentValue(outcome.value);
-
-            if (!outcome.terminal) {
-                node = node.expand();
-                value = node.simulate();
-            }
-
-            node.backpropagate(value);
+    public Node search(Node root, GameState rootState) {
+        for (int i = 0; i < iterations; i++) {
+            GameState state = rootState.copy();
+            Node leaf = selection.select(root, state);
+            Node child = expansion.expand(leaf, state);
+            if (child != leaf) state.doMove(child.move);
+            int winner = state.isTerminal() ? state.getWinnerId()
+                    : simulation.simulate(state);
+            backprop.backpropagate(child, winner);
         }
-
-        double[] action_probs = new double[game.actionSize()];
-        for (Node<S> child : root.children) {
-            action_probs[child.action_taken] = child.visit_count;
-        }
-        normalizeInPlace(action_probs);
-        return action_probs;
+        return bestChildByVisits(root);
     }
 
-    private void normalizeInPlace(double[] x) {
-        double sum = Arrays.stream(x).sum();
-        if (sum <= 0) {
-            return;
+    private Node bestChildByVisits(Node root) {
+        Node best = null; int bestV = -1;
+        for (Node child : root.children.values()) {
+            if (child.visits > bestV) {
+                bestV = child.visits; best = child;
+            }
         }
-        for (int i = 0; i < x.length; i++) {
-            x[i] /= sum;
-        }
+        return best;
+    }
+
+    public MovePruner getPruner() {
+        return expansion.getPruner();
     }
 }
+
+

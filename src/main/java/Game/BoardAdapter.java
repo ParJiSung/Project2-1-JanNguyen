@@ -1,6 +1,6 @@
 package Game;
 
-public class BoardAdapter {
+public final class BoardAdapter {
     private final Board board;
     private final int[][] matrix;
 
@@ -11,14 +11,12 @@ public class BoardAdapter {
     }
 
 
-
     //Updates the 2D matrix  based on the current state of the board
     public void updateMatrix() {
         int n = board.getSize();
         for (int row = 0; row < n; row++) {
             for (int col = 0; col < n; col++) {
-                Color cellColor = board.getCell(row, col);
-                matrix[row][col] = colorToInt(cellColor);
+                matrix[row][col] = colorToInt(board.getCell(row, col));
             }
         }
     }
@@ -48,25 +46,31 @@ public class BoardAdapter {
     }
 
 
-     //Converts Color enum to integer representation for matrix
-     //Where 0 = empty, 1 = red, 2 = blsck
+    //Converts Color enum to integer representation for matrix
+    //Where 0 = empty, 1 = red, 2 = blsck
 
     private int colorToInt(Color color) {
         switch (color) {
-            case RED: return 1;
-            case BLACK: return 2;
+            case RED:
+                return 1;
+            case BLACK:
+                return 2;
             case EMPTY:
-            default: return 0;
+            default:
+                return 0;
         }
     }
 
 
     private Color intToColor(int value) {
         switch (value) {
-            case 1: return Color.RED;
-            case 2: return Color.BLACK;
+            case 1:
+                return Color.RED;
+            case 2:
+                return Color.BLACK;
             case 0:
-            default: return Color.EMPTY;
+            default:
+                return Color.EMPTY;
         }
     }
 
@@ -109,7 +113,7 @@ public class BoardAdapter {
         return null;
     }
 
-     //Resets both the matrix and the board
+    //Resets both the matrix and the board
     public void reset() {
         int n = board.getSize();
         for (int row = 0; row < n; row++) {
