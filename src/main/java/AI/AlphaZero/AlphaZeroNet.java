@@ -47,10 +47,12 @@ public class AlphaZeroNet {
                 /** 
                  * .stride(1,1) means the filter moves 1 step at a time.
                  * .padding(1,1) means we add a border of zeros around the input to keep the output size the same as input size. Otherwise the board would shrink after convolution.
+                 * Since we use a 3x3 filter, padding of 1 makes sure that for example the corners are still processed correctly. Otherwise, the result of 1 convolutional layer would be a 9x9 board instead of a 11x11 board, and after multiple convolutional layers the board could disappear.
                  * .nOut(64) means we have 64 different filters looking for different patterns.
                  * Activation.RELU adds non-linearity, allowing the network to learn complex patterns. It applies ReLU logic and turns negative numbers to 0.
                  * Finally the layer gets connected to the input node defined earlier.
                  */
+                // TODO: Choose the best number for nOut (number of filters)
                 .stride(1,1).padding(1,1).nOut(64).activation(Activation.RELU).build(), "input")
             .addLayer("bn1", new BatchNormalization(), "conv1") // Normalizes the output of conv1 to stabilize and speed up training.
             
@@ -105,7 +107,7 @@ public class AlphaZeroNet {
         model.save(new File(path), true);
     }
     
-    // Methods that creates a new empty network and then immediately overwrites its brain with data loaded from a file.
+    // Method that creates a new empty network and then immediately overwrites its brain with data loaded from a file.
     public static AlphaZeroNet load(String path, int size) throws IOException {
         AlphaZeroNet net = new AlphaZeroNet(size);
         net.model = ComputationGraph.load(new File(path), true);

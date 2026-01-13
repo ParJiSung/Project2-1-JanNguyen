@@ -156,7 +156,7 @@ public class AlphaZeroMCTS {
     public double[] getSearchPolicy(Node root, double temperature, double boardSize) {
         double[] policy = new double[(int)(boardSize*boardSize)]; // Initialize all to 0.0
         
-        // If temperature is close to 0, just pick the max visited node (greedy)
+        // If temperature is close to 0, just pick the max visited node (competitive play), because this move is most likely to lead to a win.
         if (temperature < 0.01) {
             int bestIdx = -1;
             int maxVisits = -1;
@@ -171,7 +171,7 @@ public class AlphaZeroMCTS {
             return policy;
         }
 
-        // Otherwise, calculate probabilities: (visits)^(1/temp)
+        // Otherwise, calculate probabilities: (visits)^(1/temperature). (Exploratory play) This is done early on in the game, since the AI needs to try different openings of the game. If the temperature would be high, the AI would play the exact same opening over and over again, which will cause the AI to not explore other moves which could turn out to be better for the future.
         double sum = 0;
         for (Map.Entry<Move, Node> entry : root.children.entrySet()) {
             Move m = entry.getKey();
@@ -206,7 +206,6 @@ public class AlphaZeroMCTS {
             sum += x;
         }
 
-        // extremely defensive fallback
         if (sum <= 0.0) {
             double uniform = 1.0 / k;
             for (int i = 0; i < k; i++) noise[i] = uniform;
@@ -223,7 +222,6 @@ public class AlphaZeroMCTS {
             priorSum += child.priorProbability;
         }
 
-        // renormalize
         if (priorSum > 0.0) {
             for (Node child : children) child.priorProbability /= priorSum;
         }

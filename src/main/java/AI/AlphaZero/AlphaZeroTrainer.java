@@ -2,6 +2,8 @@ package AI.AlphaZero;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
@@ -25,29 +27,37 @@ public class AlphaZeroTrainer {
     /**
      * The main method to start the training process.
      * @param numGames How many self-play games to run.
+     * @param batchSize How many games to accumulate before training the network.
      * @param mctsIterations How many mcts iterations per move.
      */
     public void train(int numGames, int mctsIterations) {
-        for (int i = 0; i < numGames; i++) {
-            System.out.println("Starting Self-Play Game " + (i + 1));
+        // Determine how many batches of games to run
+        // e.g., if you have 32 cores, run 32 games in parallel at a time
+        int batchSize = 128; // Adjust based on Supercomputer cores
+        int batches = numGames / batchSize;
+
+        for (int b = 0; b < batches; b++) {
+            System.out.println("Starting Batch " + (b + 1));
+
+            // PARALLEL SELF-PLAY
+            // This uses all available cores to play 'batchSize' games simultaneously
+            List<TrainingExampleData> batchExamples = IntStream.range(0, batchSize)
+                .parallel() // <--- THE MAGIC KEYWORD
+                .mapToObj(i -> {
+                    System.out.println("  > Thread " + Thread.currentThread().getId() + " starting a game...");
+                    // Note: You must ensure 'selfPlay' creates its own NEW Board/MCTS instance 
+                    // or that methods are thread-safe.
+                    // Since 'mcts' object is shared, we actually need to be careful here.
+                    return selfPlay(mctsIterations); 
+                })
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
+
+            System.out.println("Batch " + (b + 1) + " finished. Training network...");
+            trainNetwork(batchExamples);
             
-            // Play one full game and collect data
-            List<TrainingExampleData> examples = selfPlay(mctsIterations);
-            
-            // Train the network on this data
-            // In a real scenario, you would accumulate many games before training, 
-            // but for simplicity, we train after every game here.
-            trainNetwork(examples);
-            
-            System.out.println("Game " + (i+1) + " finished. Training complete.");
-        }
-        
-        // Save the trained model
-        try {
-            network.save("hex_alphazero_model.zip");
-            System.out.println("Model is successfully saved!");
-        } catch (Exception e) {
-            e.printStackTrace();
+            // Save periodically
+            try { network.save("hex_model_v" + b + ".zip"); } catch (Exception e) {}
         }
     }
 
@@ -64,6 +74,7 @@ public class AlphaZeroTrainer {
             // Run MCTS to get the root of the search tree
             Node root = mcts.search(board, currentPlayer, iterations);
 
+            // TODO: Decide on temperature threshold and values.
             // Extract the Policy from the root's visit counts
             // For the first 30 moves, use temperature=1 (explore), then temperature=0 (exploit)
             double temp = (moveCount < 30) ? 1.0 : 0.2; // Shortened for testing
@@ -97,7 +108,7 @@ public class AlphaZeroTrainer {
         // The value must be relative to the player who was deciding!
         // If Red won (Result=1), then for a board where Red was playing, Target=1.
         // But for a board where Black was playing, Target=-1.
-        Color historyPlayer = Color.RED; // We know game started with Red
+        Color historyPlayer = Color.RED; // We assume game started with Red
         
         List<TrainingExampleData> finalExamples = new ArrayList<>();
         for (TrainingExampleData example : gameHistory) {
