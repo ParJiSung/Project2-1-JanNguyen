@@ -33,7 +33,7 @@ public class AlphaZeroTrainer {
     public void train(int numGames, int mctsIterations) {
         // Determine how many batches of games to run
         // e.g., if you have 32 cores, run 32 games in parallel at a time
-        int batchSize = 128; // Adjust based on Supercomputer cores
+        int batchSize = 20; // Adjust based on Supercomputer cores
         int batches = numGames / batchSize;
 
         for (int b = 0; b < batches; b++) {
@@ -41,14 +41,14 @@ public class AlphaZeroTrainer {
 
             // PARALLEL SELF-PLAY
             // This uses all available cores to play 'batchSize' games simultaneously
+            INDArray paramsSnapshot = network.getModel().params().dup();
             List<TrainingExampleData> batchExamples = IntStream.range(0, batchSize)
                 .parallel() // <--- THE MAGIC KEYWORD
                 .mapToObj(i -> {
-                    System.out.println("  > Thread " + Thread.currentThread().getId() + " starting a game...");
-                    // Note: You must ensure 'selfPlay' creates its own NEW Board/MCTS instance 
-                    // or that methods are thread-safe.
-                    // Since 'mcts' object is shared, we actually need to be careful here.
-                    return selfPlay(mctsIterations); 
+                    AlphaZeroNet localNet = new AlphaZeroNet(boardSize);
+                    localNet.getModel().setParams(paramsSnapshot);   // same weights
+                    AlphaZeroMCTS localMcts = new AlphaZeroMCTS(localNet);
+                    return selfPlay(localMcts, mctsIterations);
                 })
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
@@ -64,7 +64,7 @@ public class AlphaZeroTrainer {
     /**
      * Simulates one full game of Self-Play.
      */
-    private List<TrainingExampleData> selfPlay(int iterations) {
+    private List<TrainingExampleData> selfPlay(AlphaZeroMCTS localMcts, int iterations){
         List<TrainingExampleData> gameHistory = new ArrayList<>();
         Board board = new Board(boardSize);
         Color currentPlayer = Color.RED;
@@ -72,13 +72,13 @@ public class AlphaZeroTrainer {
 
         while (!board.isTerminal()) {
             // Run MCTS to get the root of the search tree
-            Node root = mcts.search(board, currentPlayer, iterations);
+            Node root = localMcts.search(board, currentPlayer, iterations);
 
             // TODO: Decide on temperature threshold and values.
             // Extract the Policy from the root's visit counts
             // For the first 30 moves, use temperature=1 (explore), then temperature=0 (exploit)
             double temp = (moveCount < 30) ? 1.0 : 0.2; // Shortened for testing
-            double[] policy = mcts.getSearchPolicy(root, temp, boardSize);
+            double[] policy = localMcts.getSearchPolicy(root, temp, boardSize);
 
             // Store the state and the target policy
             INDArray input = BoardEncoder.encode(board, currentPlayer);

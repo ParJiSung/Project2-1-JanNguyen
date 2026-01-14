@@ -36,8 +36,8 @@ public class AlphaZeroNet {
         int outputSize = boardSize * boardSize; // The total number of moves. The policy head will need to output this amount of probabilities.
 
         ComputationGraphConfiguration conf = new NeuralNetConfiguration.Builder()
-            .updater(new Adam(3e-4)) // Learning Rate
-            .l2(3e-4) // Regularization to prevent overfitting
+            .updater(new Adam(1e-4)) // Learning Rate
+            .l2(1e-4) // Regularization to prevent overfitting
             .graphBuilder() // Allows for creating split paths in the network (policy and value).
             .addInputs("input") // Input layer
 
