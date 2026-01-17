@@ -2,186 +2,243 @@ package AI.AlphaZero;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.dataset.MultiDataSet;
 import org.nd4j.linalg.factory.Nd4j;
 
-import AI.mcts.HexGame.Move;
+import AI.mcts.HexGame.Move; 
 import AI.mcts.Node;
 import Game.Board;
 import Game.Color;
 
 public class AlphaZeroTrainer {
     private AlphaZeroNet network;
-    private AlphaZeroMCTS mcts;
     private int boardSize;
+
+    // CONFIGURATION - Optimized for dual A100 + 256 threads (respectful usage)
+    // We use Virtual Threads (Java 21), so we can spawn thousands of lightweight threads.
+    // This allows us to run many games concurrently to fill the massive GPU batch size.
+    
+    // A100 is huge. Let's aim for a batch size of 16384 to really saturate it and hide CPU latency.
+    private static final int BATCH_SIZE = 8192; 
+    
+    // OVERSUBSCRIPTION:
+    // We need massive concurrency to keep the queue full for such a huge batch size.
+    // We will run 50,000 games in parallel.
+    private static final int PLAY_BATCH_SIZE = 5000;
+
+    private static final int TRAINING_EPOCHS = 3; 
 
     public AlphaZeroTrainer(int boardSize) {
         this.boardSize = boardSize;
+        
+        System.out.println("Backend: " + Nd4j.getBackend().getClass().getSimpleName());
+        try {
+            int numDevices = Nd4j.getAffinityManager().getNumberOfDevices();
+            System.out.println("Available GPU devices: " + numDevices);
+        } catch (Exception e) {
+            System.out.println("GPU device info not available");
+        }
+        
         this.network = new AlphaZeroNet(boardSize);
-        this.mcts = new AlphaZeroMCTS(network);
+        
+        // A100 has 80GB.
+        Nd4j.getMemoryManager().setAutoGcWindow(5000); 
     }
 
-    /**
-     * The main method to start the training process.
-     * @param numGames How many self-play games to run.
-     * @param batchSize How many games to accumulate before training the network.
-     * @param mctsIterations How many mcts iterations per move.
-     */
-    public void train(int numGames, int mctsIterations) {
-        // Determine how many batches of games to run
-        // e.g., if you have 32 cores, run 32 games in parallel at a time
-        int batchSize = 20; // Adjust based on Supercomputer cores
-        int batches = numGames / batchSize;
+    public void train(int totalGames, int mctsIterations) {
+        // Calculate how many "Generations" (Play Batches) we need
+        // Each generation runs PLAY_BATCH_SIZE games in parallel
+        
+        int gamesToRun = totalGames;
+        
+        // Split into Play Batches (Generations)
+        int numBatches = (int) Math.ceil((double) gamesToRun / PLAY_BATCH_SIZE);
 
-        for (int b = 0; b < batches; b++) {
-            System.out.println("Starting Batch " + (b + 1));
+        System.out.println("======================================================================");
+        System.out.println("               ALPHA ZERO TRAINING SESSION (OPTIMIZED)");
+        System.out.println("======================================================================");
+        System.out.println("Target Total Games: " + gamesToRun);
+        System.out.println("Batch Size (GPU):   " + BATCH_SIZE);
+        System.out.println("Concurrency:        " + PLAY_BATCH_SIZE + " (Oversubscribed)");
+        System.out.println("Generations:        " + numBatches);
 
-            // PARALLEL SELF-PLAY
-            // This uses all available cores to play 'batchSize' games simultaneously
-            INDArray paramsSnapshot = network.getModel().params().dup();
-            List<TrainingExampleData> batchExamples = IntStream.range(0, batchSize)
-                .parallel() // <--- THE MAGIC KEYWORD
-                .mapToObj(i -> {
-                    AlphaZeroNet localNet = new AlphaZeroNet(boardSize);
-                    localNet.getModel().setParams(paramsSnapshot);   // same weights
-                    AlphaZeroMCTS localMcts = new AlphaZeroMCTS(localNet);
-                    return selfPlay(localMcts, mctsIterations);
-                })
-                .flatMap(List::stream)
-                .collect(Collectors.toList());
+        MultiGpuBatcher batcher = new MultiGpuBatcher(network, BATCH_SIZE);
+        Thread batcherThread = new Thread(batcher);
+        batcherThread.setDaemon(true);
+        batcherThread.start();
 
-            System.out.println("Batch " + (b + 1) + " finished. Training network...");
-            trainNetwork(batchExamples);
+        // Use Virtual Thread Executor
+        // This is the MAGIC key to performance here.
+        try (var executor = java.util.concurrent.Executors.newVirtualThreadPerTaskExecutor()) {
             
-            // Save periodically
-            try { network.save("hex_model_v" + b + ".zip"); } catch (Exception e) {}
+            for (int b = 0; b < numBatches; b++) {
+                // Determine how many games to run in this generation
+                int gamesInThisGeneration = Math.min(PLAY_BATCH_SIZE, gamesToRun - (b * PLAY_BATCH_SIZE));
+                if (gamesInThisGeneration <= 0) break;
+
+                AtomicInteger completedGames = new AtomicInteger(0);
+                List<java.util.concurrent.Callable<List<TrainingExampleData>>> tasks = new ArrayList<>();
+                
+                final int generationIdx = b + 1;
+                final int totalGamesInGen = gamesInThisGeneration;
+
+                for (int i = 0; i < gamesInThisGeneration; i++) {
+                    tasks.add(() -> {
+                        // Cast or access facade if needed, but MultiGpuBatcher.predict matches signature of what MCTS needs? 
+                        // MCTS expects a NeuralNetBatcher type probably?
+                        // Let's check AlphaZeroMCTS constructor signature.
+                        // If it expects NeuralNetBatcher, we might have a problem if MultiGpuBatcher is not a subclass.
+                        // Wait, MultiGpuBatcher implements Runnable but is NOT a NeuralNetBatcher.
+                        // I need to check AlphaZeroMCTS.
+                        AlphaZeroMCTS localMcts = new AlphaZeroMCTS(batcher, boardSize);
+                        List<TrainingExampleData> result = selfPlay(localMcts, mctsIterations);
+                        int done = completedGames.incrementAndGet();
+                        if (done % 500 == 0 || done == totalGamesInGen) {
+                            System.out.println(String.format("    [Gen %d] Game %5d/%d finished.", generationIdx, done, totalGamesInGen));
+                        }
+                        return result;
+                    });
+                }
+
+                System.out.println(">>> Starting Generation " + generationIdx + " with " + gamesInThisGeneration + " concurrent games...");
+                List<java.util.concurrent.Future<List<TrainingExampleData>>> futures = executor.invokeAll(tasks);
+                
+                List<TrainingExampleData> batchExamples = new ArrayList<>();
+                for (var future : futures) {
+                    batchExamples.addAll(future.get()); // Collect results
+                }
+
+                System.out.println(">>> Generation finished. Pausing batcher for training...");
+                batcher.pause();
+                
+                System.out.println(">>> Training Network on " + batchExamples.size() + " positions...");
+                trainNetwork(batchExamples);
+                
+                // Update worker GPUs with new weights
+                batcher.updateWeights(network);
+
+                batcher.resume();
+                try { network.save("hex_model_latest.zip"); } catch (Exception e) {}
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            batcher.stop();
         }
     }
 
-    /**
-     * Simulates one full game of Self-Play.
-     */
     private List<TrainingExampleData> selfPlay(AlphaZeroMCTS localMcts, int iterations){
         List<TrainingExampleData> gameHistory = new ArrayList<>();
         Board board = new Board(boardSize);
         Color currentPlayer = Color.RED;
-        int moveCount = 0;
 
         while (!board.isTerminal()) {
-            // Run MCTS to get the root of the search tree
             Node root = localMcts.search(board, currentPlayer, iterations);
+            double temp = 1.0; 
+            double[] policy = localMcts.getSearchPolicy(root, temp);
 
-            // TODO: Decide on temperature threshold and values.
-            // Extract the Policy from the root's visit counts
-            // For the first 30 moves, use temperature=1 (explore), then temperature=0 (exploit)
-            double temp = (moveCount < 30) ? 1.0 : 0.2; // Shortened for testing
-            double[] policy = localMcts.getSearchPolicy(root, temp, boardSize);
-
-            // Store the state and the target policy
-            INDArray input = BoardEncoder.encode(board, currentPlayer);
-            INDArray policyTensor = Nd4j.create(policy).reshape(1, boardSize * boardSize);
+            // OPTIMIZATION: Store raw floats (Java Heap), NOT INDArrays (Native Heap)
+            float[] encodedData = (root.cachedEncoding != null) ? root.cachedEncoding : BoardEncoder.encode(board, currentPlayer);
             
-            // We do not know the winner ("Value") yet, so we store null for now
-            // We use a placeholder value (0.0) that we will overwrite later.
-            gameHistory.add(new TrainingExampleData(input, policyTensor, 0.0));
+            // Convert double[] policy to float[] for storage
+            float[] policyFloat = new float[policy.length];
+            for(int i=0; i<policy.length; i++) policyFloat[i] = (float)policy[i];
 
-            // Select a move based on the policy
+            gameHistory.add(new TrainingExampleData(encodedData, policyFloat, 0.0f));
+
             Move bestMove = selectMoveFromPolicy(policy, board);
-            
-            // Apply move
             if (currentPlayer == Color.RED) board.getMoveRed(bestMove.row, bestMove.col, null);
             else board.getMoveBlack(bestMove.row, bestMove.col, null);
             
             currentPlayer = (currentPlayer == Color.RED) ? Color.BLACK : Color.RED;
-            moveCount++;
         }
 
-        // The game is over. Assign the actual result (Value) to all examples
-        double result = 0.0;
-        if (board.redWins()) result = 1.0;     // Red Win
-        else if (board.blackWins()) result = -1.0; // Black Win (Red Loss)
-
-        // Backfill the "Value" target.
-        // The value must be relative to the player who was deciding!
-        // If Red won (Result=1), then for a board where Red was playing, Target=1.
-        // But for a board where Black was playing, Target=-1.
-        Color historyPlayer = Color.RED; // We assume game started with Red
-        
-        List<TrainingExampleData> finalExamples = new ArrayList<>();
+        double result = board.redWins() ? 1.0 : (board.blackWins() ? -1.0 : 0.0);
+        Color historyPlayer = Color.RED; 
         for (TrainingExampleData example : gameHistory) {
-            double relativeValue = (historyPlayer == Color.RED) ? result : -result;
-            
-            // Re-create the example with the correct value
-            finalExamples.add(new TrainingExampleData(example.inputBoard, example.targetPolicy, relativeValue));
-            
-            // Switch player for next example
+            float val = (float) ((historyPlayer == Color.RED) ? result : -result);
+            example.targetValue[0] = val;
             historyPlayer = (historyPlayer == Color.RED) ? Color.BLACK : Color.RED;
         }
-
-        return finalExamples;
+        return gameHistory;
     }
 
-    /**
-     * Helper to pick a move index based on the probability distribution.
-     */
     private Move selectMoveFromPolicy(double[] policy, Board board) {
-        // Generate a random number between 0 and 1.
         double randomNumber = Math.random();
-
         double sum = 0;
         int selectedIdx = -1;
+        int policyLength = policy.length;
         
-        // Loop over all the entries in the policy array.
-        for (int i = 0; i < policy.length; i++) {
-            sum += policy[i]; // Cumulative sum of probabilities
-            if (randomNumber <= sum) { // If the random number falls within this range
-                selectedIdx = i; // Select this move
+        for (int i = 0; i < policyLength; i++) {
+            sum += policy[i];
+            if (randomNumber <= sum) {
+                selectedIdx = i;
                 break;
             }
         }
-        
-        // Fallback if something went wrong
         if (selectedIdx == -1) {
-            for (int i=0; i<policy.length; i++) if (policy[i] > 0) selectedIdx = i;
+            for (int i = 0; i < policyLength; i++) {
+                if (policy[i] > 0) {
+                    selectedIdx = i;
+                    break;
+                }
+            }
         }
-
         int row = selectedIdx / boardSize;
         int col = selectedIdx % boardSize;
-        return new Move(row, col);
+        
+        return Move.get(row, col);
     }
 
-    /**
-     * Feeds the collected examples into the neural network to update weights.
-     */
     private void trainNetwork(List<TrainingExampleData> examples) {
-        if (examples.isEmpty()) return; // Nothing to train on
+        if (examples.isEmpty()) return;
+        java.util.Collections.shuffle(examples);
 
-        // Convert List of examples into one giant batch (DataSet)
-        INDArray[] boardFeatures = new INDArray[examples.size()];
-        INDArray[] policies = new INDArray[examples.size()];
-        INDArray[] values = new INDArray[examples.size()];
+        int totalExamples = examples.size();
+        int miniBatchSize = 4096; // 4096 is safer for stability
 
-        for (int i = 0; i < examples.size(); i++) {
-            boardFeatures[i] = examples.get(i).inputBoard;
-            policies[i] = examples.get(i).targetPolicy;
-            values[i] = examples.get(i).targetValue;
+        for (int epoch = 0; epoch < TRAINING_EPOCHS; epoch++) {
+            for (int i = 0; i < totalExamples; i += miniBatchSize) {
+                int end = Math.min(i + miniBatchSize, totalExamples);
+                List<TrainingExampleData> batch = examples.subList(i, end);
+                int currentBatchSize = batch.size();
+
+                // CONVERT TO INDARRAY JUST IN TIME (And then discard)
+                // 1. Flatten data into large buffers
+                int inputSize = batch.get(0).inputBoard.length;
+                int policySize = batch.get(0).targetPolicy.length;
+                int side = (int)Math.sqrt(inputSize / 3);
+
+                float[] inputsBuffer = new float[currentBatchSize * inputSize];
+                float[] policiesBuffer = new float[currentBatchSize * policySize];
+                float[] valuesBuffer = new float[currentBatchSize];
+
+                for (int k = 0; k < currentBatchSize; k++) {
+                    System.arraycopy(batch.get(k).inputBoard, 0, inputsBuffer, k*inputSize, inputSize);
+                    System.arraycopy(batch.get(k).targetPolicy, 0, policiesBuffer, k*policySize, policySize);
+                    valuesBuffer[k] = batch.get(k).targetValue[0];
+                }
+
+                // 2. Create NDArrays
+                INDArray inputND = Nd4j.create(inputsBuffer, new int[]{currentBatchSize, 3, side, side});
+                INDArray policyND = Nd4j.create(policiesBuffer, new int[]{currentBatchSize, policySize});
+                INDArray valueND = Nd4j.create(valuesBuffer, new int[]{currentBatchSize, 1});
+
+                try {
+                    network.getModel().fit(new MultiDataSet(new INDArray[]{inputND}, new INDArray[]{policyND, valueND}));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    // 3. CLOSE IMMEDIATELY to free GPU memory
+                    inputND.close();
+                    policyND.close();
+                    valueND.close();
+                }
+            }
         }
-
-        // Stack them along the batch dimension (Dimension 0)
-        INDArray batchBoardFeatures = Nd4j.concat(0, boardFeatures);
-        INDArray batchPolicies = Nd4j.concat(0, policies);
-        INDArray batchValues = Nd4j.concat(0, values);
-
-        // Create MultiDataSet (Inputs -> [PolicyOutput, ValueOutput])
-        org.nd4j.linalg.dataset.MultiDataSet dataset = new org.nd4j.linalg.dataset.MultiDataSet(
-            new INDArray[]{batchBoardFeatures}, 
-            new INDArray[]{batchPolicies, batchValues}
-        );
-
-        // Train the network with the dataset
-        network.getModel().fit(dataset);
     }
 }

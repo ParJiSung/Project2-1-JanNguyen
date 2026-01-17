@@ -1,0 +1,1917 @@
+-bash: .bashrc: Adresář nebo soubor neexistuje
+aura:/home/xsvobo10/Project2-1-JanNguyen>$ nice -n 19 java -Xmx16G -cp target/classes:target/dependency/*
+AI.AlphaZero.AlphaZeroRunner
+>>> 1. Initializing...
+Exception in thread "main" java.lang.NoClassDefFoundError: org/nd4j/linalg/dataset/api/MultiDataSet
+        at AI.AlphaZero.AlphaZeroRunner.main(AlphaZeroRunner.java:9)
+Caused by: java.lang.ClassNotFoundException: org.nd4j.linalg.dataset.api.MultiDataSet
+        at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+        at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+        at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+        ... 1 more
+Shutting down...
+aura:/home/xsvobo10/Project2-1-JanNguyen>$ nice -n 19 mvn clean compile exec:java -Pgpu -DskipTests -Dexec
+.mainClass="AI.AlphaZero.AlphaZeroRunner"
+[INFO] Scanning for projects...
+[INFO]
+[INFO] --------------------------< main:team04-app >---------------------------
+[INFO] Building team04-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- clean:3.2.0:clean (default-clean) @ team04-app ---
+[INFO] Deleting /home/xsvobo10/Project2-1-JanNguyen/target
+[INFO]
+[INFO] --- resources:3.3.0:resources (default-resources) @ team04-app ---
+[INFO] Copying 6 resources
+[INFO]
+[INFO] --- compiler:3.11.0:compile (default-compile) @ team04-app ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 45 source files with javac [debug release 21] to target/classes
+[INFO]
+[INFO] --- exec:3.3.0:java (default-cli) @ team04-app ---
+>>> 1. Initializing...
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.deeplearning4j.nn.graph.ComputationGraph - Starting Computa
+tionGraph with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.factory.Nd4jBackend - Loaded [JCublasBackend] b
+ackend
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.nativeblas.NativeOpsHolder - Number of threads used fo
+r linear algebra: 64
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Back
+end used: [CUDA]; OS: [Linux]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Core
+s: [256]; Memory: [29,5GB];
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Blas
+ vendor: [CUBLAS]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build versio
+n: 11.6.124
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 1: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - Backend build informat
+ion:
+ GCC: "7.5.0"
+STD version: 201103L
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+>>> 2. Running Smoke Test (Fast)...
+======================================================================
+               ALPHA ZERO TRAINING SESSION
+======================================================================
+ Games: 100000   | Batch Size: 64   | Batches: 2
+ Threads: 64     | MCTS Iters: 200
+======================================================================
+
+>>> Starting Batch 1/2
+^CShutting down...
+aura:/home/xsvobo10/Project2-1-JanNguyen>$ nice -n 19 mvn clean compile exec:java -Pgpu -DskipTests -Dexec
+.mainClass="AI.AlphaZero.AlphaZeroRunner"
+[INFO] Scanning for projects...
+[INFO]
+[INFO] --------------------------< main:team04-app >---------------------------
+[INFO] Building team04-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- clean:3.2.0:clean (default-clean) @ team04-app ---
+[INFO] Deleting /home/xsvobo10/Project2-1-JanNguyen/target
+[INFO]
+[INFO] --- resources:3.3.0:resources (default-resources) @ team04-app ---
+[INFO] Copying 6 resources
+[INFO]
+[INFO] --- compiler:3.11.0:compile (default-compile) @ team04-app ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 45 source files with javac [debug release 21] to target/classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR :
+[INFO] -------------------------------------------------------------
+[ERROR] /home/xsvobo10/Project2-1-JanNguyen/src/main/java/AI/mcts/HexGame/GameState.java:[39,21] Move(int,
+int) has private access in AI.mcts.HexGame.Move
+[ERROR] /home/xsvobo10/Project2-1-JanNguyen/src/main/java/Game/Board.java:[76,22] constructor Board in cla
+ss Game.Board cannot be applied to given types;
+  required: int,Game.Color[],Game.UnionFind
+  found:    int
+  reason: actual and formal argument lists differ in length
+[ERROR] /home/xsvobo10/Project2-1-JanNguyen/src/main/java/AI/AlphaZero/AlphaZeroTrainer.java:[109,23] cons
+tructor Board in class Game.Board cannot be applied to given types;
+  required: int,Game.Color[],Game.UnionFind
+  found:    int
+  reason: actual and formal argument lists differ in length
+[ERROR] /home/xsvobo10/Project2-1-JanNguyen/src/main/java/AI/AlphaZero/AlphaZeroTrainer.java:[118,49] inco
+mpatible types: float[] cannot be converted to org.nd4j.linalg.api.ndarray.INDArray
+[ERROR] /home/xsvobo10/Project2-1-JanNguyen/src/main/java/AI/AlphaZero/AlphaZeroTrainer.java:[160,16] Move
+(int,int) has private access in AI.mcts.HexGame.Move
+[ERROR] /home/xsvobo10/Project2-1-JanNguyen/src/main/java/AI/AlphaZero/AlphaZeroMCTS.java:[115,28] Move(in
+t,int) has private access in AI.mcts.HexGame.Move
+[ERROR] /home/xsvobo10/Project2-1-JanNguyen/src/main/java/AI/AiPlayer/AITester.java:[119,23] constructor B
+oard in class Game.Board cannot be applied to given types;
+  required: int,Game.Color[],Game.UnionFind
+  found:    int
+  reason: actual and formal argument lists differ in length
+[ERROR] /home/xsvobo10/Project2-1-JanNguyen/src/main/java/AI/hex/HexMctsAdapter.java:[59,19] constructor B
+oard in class Game.Board cannot be applied to given types;
+  required: int,Game.Color[],Game.UnionFind
+  found:    int
+  reason: actual and formal argument lists differ in length
+[ERROR] /home/xsvobo10/Project2-1-JanNguyen/src/main/java/AI/RunExperimentCSV.java:[177,23] constructor Bo
+ard in class Game.Board cannot be applied to given types;
+  required: int,Game.Color[],Game.UnionFind
+  found:    int
+  reason: actual and formal argument lists differ in length
+[INFO] 9 errors
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.732 s
+[INFO] Finished at: 2026-01-14T18:05:48+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile (default-comp
+ile) on project team04-app: Compilation failure: Compilation failure:
+[ERROR] /home/xsvobo10/Project2-1-JanNguyen/src/main/java/AI/mcts/HexGame/GameState.java:[39,21] Move(int,
+int) has private access in AI.mcts.HexGame.Move
+[ERROR] /home/xsvobo10/Project2-1-JanNguyen/src/main/java/Game/Board.java:[76,22] constructor Board in cla
+ss Game.Board cannot be applied to given types;
+[ERROR]   required: int,Game.Color[],Game.UnionFind
+[ERROR]   found:    int
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /home/xsvobo10/Project2-1-JanNguyen/src/main/java/AI/AlphaZero/AlphaZeroTrainer.java:[109,23] cons
+tructor Board in class Game.Board cannot be applied to given types;
+[ERROR]   required: int,Game.Color[],Game.UnionFind
+[ERROR]   found:    int
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /home/xsvobo10/Project2-1-JanNguyen/src/main/java/AI/AlphaZero/AlphaZeroTrainer.java:[118,49] inco
+mpatible types: float[] cannot be converted to org.nd4j.linalg.api.ndarray.INDArray
+[ERROR] /home/xsvobo10/Project2-1-JanNguyen/src/main/java/AI/AlphaZero/AlphaZeroTrainer.java:[160,16] Move
+(int,int) has private access in AI.mcts.HexGame.Move
+[ERROR] /home/xsvobo10/Project2-1-JanNguyen/src/main/java/AI/AlphaZero/AlphaZeroMCTS.java:[115,28] Move(in
+t,int) has private access in AI.mcts.HexGame.Move
+[ERROR] /home/xsvobo10/Project2-1-JanNguyen/src/main/java/AI/AiPlayer/AITester.java:[119,23] constructor B
+oard in class Game.Board cannot be applied to given types;
+[ERROR]   required: int,Game.Color[],Game.UnionFind
+[ERROR]   found:    int
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /home/xsvobo10/Project2-1-JanNguyen/src/main/java/AI/hex/HexMctsAdapter.java:[59,19] constructor B
+oard in class Game.Board cannot be applied to given types;
+[ERROR]   required: int,Game.Color[],Game.UnionFind
+[ERROR]   found:    int
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /home/xsvobo10/Project2-1-JanNguyen/src/main/java/AI/RunExperimentCSV.java:[177,23] constructor Bo
+ard in class Game.Board cannot be applied to given types;
+[ERROR]   required: int,Game.Color[],Game.UnionFind
+[ERROR]   found:    int
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] -> [Help 1]
+[ERROR]
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR]
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+aura:/home/xsvobo10/Project2-1-JanNguyen>$
+
+aura:/home/xsvobo10/Project2-1-JanNguyen>$ nice -n 19 mvn clean compile exec:java -Pgpu -DskipTests -Dexec
+.mainClass="AI.AlphaZero.AlphaZeroRunner"
+[INFO] Scanning for projects...
+[INFO]
+[INFO] --------------------------< main:team04-app >---------------------------
+[INFO] Building team04-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- clean:3.2.0:clean (default-clean) @ team04-app ---
+[INFO] Deleting /home/xsvobo10/Project2-1-JanNguyen/target
+[INFO]
+[INFO] --- resources:3.3.0:resources (default-resources) @ team04-app ---
+[INFO] Copying 6 resources
+[INFO]
+[INFO] --- compiler:3.11.0:compile (default-compile) @ team04-app ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 45 source files with javac [debug release 21] to target/classes
+[INFO]
+[INFO] --- exec:3.3.0:java (default-cli) @ team04-app ---
+>>> 1. Initializing...
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.deeplearning4j.nn.graph.ComputationGraph - Starting Computa
+tionGraph with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.factory.Nd4jBackend - Loaded [JCublasBackend] b
+ackend
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.nativeblas.NativeOpsHolder - Number of threads used fo
+r linear algebra: 64
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Back
+end used: [CUDA]; OS: [Linux]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Core
+s: [256]; Memory: [29,5GB];
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Blas
+ vendor: [CUBLAS]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build versio
+n: 11.6.124
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 1: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - Backend build informat
+ion:
+ GCC: "7.5.0"
+STD version: 201103L
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+>>> 2. Running Smoke Test (Fast)...
+======================================================================
+               ALPHA ZERO TRAINING SESSION
+======================================================================
+^Cng down...
+
+aura:/home/xsvobo10/Project2-1-JanNguyen>$ nice -n 19 mvn clean compile exec:java -Pgpu -DskipTests -Dexec
+.mainClass="AI.AlphaZero.AlphaZeroRunner"
+[INFO] Scanning for projects...
+[INFO]
+[INFO] --------------------------< main:team04-app >---------------------------
+[INFO] Building team04-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- clean:3.2.0:clean (default-clean) @ team04-app ---
+[INFO] Deleting /home/xsvobo10/Project2-1-JanNguyen/target
+[INFO]
+[INFO] --- resources:3.3.0:resources (default-resources) @ team04-app ---
+[INFO] Copying 6 resources
+[INFO]
+[INFO] --- compiler:3.11.0:compile (default-compile) @ team04-app ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 45 source files with javac [debug release 21] to target/classes
+[INFO]
+[INFO] --- exec:3.3.0:java (default-cli) @ team04-app ---
+>>> 1. Initializing...
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.deeplearning4j.nn.graph.ComputationGraph - Starting Computa
+tionGraph with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.factory.Nd4jBackend - Loaded [JCublasBackend] b
+ackend
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.nativeblas.NativeOpsHolder - Number of threads used fo
+r linear algebra: 64
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Back
+end used: [CUDA]; OS: [Linux]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Core
+s: [256]; Memory: [29,5GB];
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Blas
+ vendor: [CUBLAS]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build versio
+n: 11.6.124
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 1: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - Backend build informat
+ion:
+ GCC: "7.5.0"
+STD version: 201103L
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+>>> 2. Running Smoke Test (Fast)...
+======================================================================
+               ALPHA ZERO TRAINING SESSION
+======================================================================
+    [Batch 1] Game  1/64 finished.
+    [Batch 1] Game  2/64 finished.
+    [Batch 1] Game  3/64 finished.
+    [Batch 1] Game  4/64 finished.
+    [Batch 1] Game  5/64 finished.
+    [Batch 1] Game  6/64 finished.
+    [Batch 1] Game  7/64 finished.
+    [Batch 1] Game  8/64 finished.
+    [Batch 1] Game  9/64 finished.
+    [Batch 1] Game 10/64 finished.
+    [Batch 1] Game 11/64 finished.
+    [Batch 1] Game 12/64 finished.
+    [Batch 1] Game 13/64 finished.
+    [Batch 1] Game 14/64 finished.
+    [Batch 1] Game 15/64 finished.
+    [Batch 1] Game 16/64 finished.
+    [Batch 1] Game 17/64 finished.
+    [Batch 1] Game 18/64 finished.
+    [Batch 1] Game 19/64 finished.
+    [Batch 1] Game 20/64 finished.
+    [Batch 1] Game 21/64 finished.
+    [Batch 1] Game 22/64 finished.
+    [Batch 1] Game 23/64 finished.
+    [Batch 1] Game 24/64 finished.
+    [Batch 1] Game 25/64 finished.
+    [Batch 1] Game 26/64 finished.
+    [Batch 1] Game 27/64 finished.
+    [Batch 1] Game 28/64 finished.
+    [Batch 1] Game 29/64 finished.
+    [Batch 1] Game 30/64 finished.
+    [Batch 1] Game 31/64 finished.
+    [Batch 1] Game 32/64 finished.
+    [Batch 1] Game 33/64 finished.
+    [Batch 1] Game 34/64 finished.
+    [Batch 1] Game 35/64 finished.
+    [Batch 1] Game 36/64 finished.
+    [Batch 1] Game 37/64 finished.
+    [Batch 1] Game 38/64 finished.
+    [Batch 1] Game 39/64 finished.
+    [Batch 1] Game 40/64 finished.
+    [Batch 1] Game 41/64 finished.
+    [Batch 1] Game 42/64 finished.
+    [Batch 1] Game 43/64 finished.
+    [Batch 1] Game 44/64 finished.
+    [Batch 1] Game 45/64 finished.
+    [Batch 1] Game 46/64 finished.
+    [Batch 1] Game 47/64 finished.
+    [Batch 1] Game 48/64 finished.
+    [Batch 1] Game 49/64 finished.
+    [Batch 1] Game 50/64 finished.
+    [Batch 1] Game 51/64 finished.
+    [Batch 1] Game 52/64 finished.
+    [Batch 1] Game 53/64 finished.
+    [Batch 1] Game 54/64 finished.
+    [Batch 1] Game 55/64 finished.
+    [Batch 1] Game 56/64 finished.
+    [Batch 1] Game 57/64 finished.
+    [Batch 1] Game 58/64 finished.
+    [Batch 1] Game 59/64 finished.
+    [Batch 1] Game 60/64 finished.
+    [Batch 1] Game 61/64 finished.
+    [Batch 1] Game 62/64 finished.
+    [Batch 1] Game 63/64 finished.
+    [Batch 1] Game 64/64 finished.
+>>> All games finished. Training Network...
+    [Batch 2] Game  1/64 finished.
+    [Batch 2] Game  2/64 finished.
+    [Batch 2] Game  3/64 finished.
+    [Batch 2] Game  4/64 finished.
+    [Batch 2] Game  5/64 finished.
+    [Batch 2] Game  6/64 finished.
+    [Batch 2] Game  7/64 finished.
+    [Batch 2] Game  8/64 finished.
+    [Batch 2] Game  9/64 finished.
+    [Batch 2] Game 10/64 finished.
+    [Batch 2] Game 11/64 finished.
+    [Batch 2] Game 12/64 finished.
+    [Batch 2] Game 13/64 finished.
+    [Batch 2] Game 14/64 finished.
+    [Batch 2] Game 15/64 finished.
+    [Batch 2] Game 16/64 finished.
+    [Batch 2] Game 17/64 finished.
+    [Batch 2] Game 18/64 finished.
+    [Batch 2] Game 19/64 finished.
+^[[B^[[B^[[B^[[B^[[B^[[B    [Batch 2] Game 20/64 finished.
+    [Batch 2] Game 21/64 finished.
+    [Batch 2] Game 22/64 finished.
+    [Batch 2] Game 23/64 finished.
+    [Batch 2] Game 24/64 finished.
+    [Batch 2] Game 25/64 finished.
+    [Batch 2] Game 26/64 finished.
+    [Batch 2] Game 27/64 finished.
+    [Batch 2] Game 28/64 finished.
+    [Batch 2] Game 29/64 finished.
+    [Batch 2] Game 30/64 finished.
+    [Batch 2] Game 31/64 finished.
+    [Batch 2] Game 32/64 finished.
+    [Batch 2] Game 33/64 finished.
+    [Batch 2] Game 34/64 finished.
+    [Batch 2] Game 35/64 finished.
+    [Batch 2] Game 36/64 finished.
+    [Batch 2] Game 37/64 finished.
+    [Batch 2] Game 38/64 finished.
+    [Batch 2] Game 39/64 finished.
+    [Batch 2] Game 40/64 finished.
+    [Batch 2] Game 41/64 finished.
+    [Batch 2] Game 42/64 finished.
+    [Batch 2] Game 43/64 finished.
+    [Batch 2] Game 44/64 finished.
+    [Batch 2] Game 45/64 finished.
+    [Batch 2] Game 46/64 finished.
+    [Batch 2] Game 47/64 finished.
+    [Batch 2] Game 48/64 finished.
+    [Batch 2] Game 49/64 finished.
+    [Batch 2] Game 50/64 finished.
+    [Batch 2] Game 51/64 finished.
+    [Batch 2] Game 52/64 finished.
+    [Batch 2] Game 53/64 finished.
+    [Batch 2] Game 54/64 finished.
+    [Batch 2] Game 55/64 finished.
+    [Batch 2] Game 56/64 finished.
+    [Batch 2] Game 57/64 finished.
+    [Batch 2] Game 58/64 finished.
+    [Batch 2] Game 59/64 finished.
+    [Batch 2] Game 60/64 finished.
+    [Batch 2] Game 61/64 finished.
+    [Batch 2] Game 62/64 finished.
+    [Batch 2] Game 63/64 finished.
+    [Batch 2] Game 64/64 finished.
+>>> All games finished. Training Network...
+>>> 3. Finished.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  03:54 min
+[INFO] Finished at: 2026-01-14T18:14:31+01:00
+[INFO] ------------------------------------------------------------------------
+Shutting down...
+aura:/home/xsvobo10/Project2-1-JanNguyen>$ nice -n 19 mvn clean compile exec:java -Pgpu -DskipTests -Dexec
+.mainClass="AI.AlphaZero.AlphaZeroRunner"
+[INFO] Scanning for projects...
+[INFO]
+[INFO] --------------------------< main:team04-app >---------------------------
+[INFO] Building team04-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- clean:3.2.0:clean (default-clean) @ team04-app ---
+[INFO] Deleting /home/xsvobo10/Project2-1-JanNguyen/target
+[INFO]
+[INFO] --- resources:3.3.0:resources (default-resources) @ team04-app ---
+[INFO] Copying 6 resources
+[INFO]
+[INFO] --- compiler:3.11.0:compile (default-compile) @ team04-app ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 45 source files with javac [debug release 21] to target/classes
+[INFO]
+[INFO] --- exec:3.3.0:java (default-cli) @ team04-app ---
+>>> 1. Initializing...
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.deeplearning4j.nn.graph.ComputationGraph - Starting Computa
+tionGraph with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.factory.Nd4jBackend - Loaded [JCublasBackend] b
+ackend
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.nativeblas.NativeOpsHolder - Number of threads used fo
+r linear algebra: 64
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Back
+end used: [CUDA]; OS: [Linux]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Core
+s: [256]; Memory: [29,5GB];
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Blas
+ vendor: [CUBLAS]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build versio
+n: 11.6.124
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 1: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - Backend build informat
+ion:
+ GCC: "7.5.0"
+STD version: 201103L
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+>>> 2. Running Smoke Test (Fast)...
+======================================================================
+               ALPHA ZERO TRAINING SESSION
+======================================================================
+    [Batch 1] Game  1/64 finished.
+    [Batch 1] Game  2/64 finished.
+    [Batch 1] Game  3/64 finished.
+    [Batch 1] Game  4/64 finished.
+    [Batch 1] Game  5/64 finished.
+    [Batch 1] Game  6/64 finished.
+    [Batch 1] Game  7/64 finished.
+    [Batch 1] Game  8/64 finished.
+    [Batch 1] Game  9/64 finished.
+    [Batch 1] Game 10/64 finished.
+    [Batch 1] Game 11/64 finished.
+    [Batch 1] Game 12/64 finished.
+    [Batch 1] Game 13/64 finished.
+    [Batch 1] Game 15/64 finished.
+    [Batch 1] Game 14/64 finished.
+    [Batch 1] Game 16/64 finished.
+    [Batch 1] Game 17/64 finished.
+    [Batch 1] Game 18/64 finished.
+    [Batch 1] Game 19/64 finished.
+    [Batch 1] Game 20/64 finished.
+    [Batch 1] Game 21/64 finished.
+    [Batch 1] Game 22/64 finished.
+    [Batch 1] Game 23/64 finished.
+    [Batch 1] Game 24/64 finished.
+    [Batch 1] Game 25/64 finished.
+    [Batch 1] Game 26/64 finished.
+    [Batch 1] Game 27/64 finished.
+    [Batch 1] Game 28/64 finished.
+    [Batch 1] Game 29/64 finished.
+    [Batch 1] Game 30/64 finished.
+    [Batch 1] Game 31/64 finished.
+    [Batch 1] Game 32/64 finished.
+    [Batch 1] Game 33/64 finished.
+    [Batch 1] Game 34/64 finished.
+    [Batch 1] Game 35/64 finished.
+    [Batch 1] Game 36/64 finished.
+    [Batch 1] Game 37/64 finished.
+    [Batch 1] Game 38/64 finished.
+    [Batch 1] Game 39/64 finished.
+    [Batch 1] Game 40/64 finished.
+    [Batch 1] Game 41/64 finished.
+    [Batch 1] Game 42/64 finished.
+    [Batch 1] Game 43/64 finished.
+    [Batch 1] Game 44/64 finished.
+    [Batch 1] Game 45/64 finished.
+    [Batch 1] Game 46/64 finished.
+    [Batch 1] Game 47/64 finished.
+    [Batch 1] Game 48/64 finished.
+    [Batch 1] Game 49/64 finished.
+    [Batch 1] Game 50/64 finished.
+    [Batch 1] Game 51/64 finished.
+    [Batch 1] Game 52/64 finished.
+    [Batch 1] Game 53/64 finished.
+    [Batch 1] Game 54/64 finished.
+    [Batch 1] Game 55/64 finished.
+    [Batch 1] Game 56/64 finished.
+    [Batch 1] Game 57/64 finished.
+    [Batch 1] Game 58/64 finished.
+    [Batch 1] Game 59/64 finished.
+    [Batch 1] Game 60/64 finished.
+    [Batch 1] Game 61/64 finished.
+    [Batch 1] Game 62/64 finished.
+    [Batch 1] Game 63/64 finished.
+    [Batch 1] Game 64/64 finished.
+>>> All games finished. Pausing batcher for training...
+>>> Training Network...
+    [Batch 2] Game  1/64 finished.
+    [Batch 2] Game  2/64 finished.
+    [Batch 2] Game  3/64 finished.
+    [Batch 2] Game  4/64 finished.
+    [Batch 2] Game  5/64 finished.
+    [Batch 2] Game  6/64 finished.
+    [Batch 2] Game  7/64 finished.
+    [Batch 2] Game  8/64 finished.
+    [Batch 2] Game  9/64 finished.
+    [Batch 2] Game 10/64 finished.
+    [Batch 2] Game 11/64 finished.
+    [Batch 2] Game 12/64 finished.
+    [Batch 2] Game 13/64 finished.
+    [Batch 2] Game 14/64 finished.
+    [Batch 2] Game 15/64 finished.
+    [Batch 2] Game 16/64 finished.
+    [Batch 2] Game 17/64 finished.
+    [Batch 2] Game 18/64 finished.
+    [Batch 2] Game 19/64 finished.
+    [Batch 2] Game 20/64 finished.
+    [Batch 2] Game 21/64 finished.
+    [Batch 2] Game 22/64 finished.
+    [Batch 2] Game 23/64 finished.
+    [Batch 2] Game 24/64 finished.
+    [Batch 2] Game 25/64 finished.
+    [Batch 2] Game 26/64 finished.
+    [Batch 2] Game 27/64 finished.
+    [Batch 2] Game 28/64 finished.
+    [Batch 2] Game 29/64 finished.
+    [Batch 2] Game 30/64 finished.
+    [Batch 2] Game 31/64 finished.
+    [Batch 2] Game 32/64 finished.
+    [Batch 2] Game 33/64 finished.
+    [Batch 2] Game 34/64 finished.
+    [Batch 2] Game 35/64 finished.
+    [Batch 2] Game 36/64 finished.
+    [Batch 2] Game 37/64 finished.
+    [Batch 2] Game 38/64 finished.
+    [Batch 2] Game 39/64 finished.
+    [Batch 2] Game 40/64 finished.
+    [Batch 2] Game 41/64 finished.
+    [Batch 2] Game 42/64 finished.
+    [Batch 2] Game 43/64 finished.
+    [Batch 2] Game 44/64 finished.
+    [Batch 2] Game 45/64 finished.
+    [Batch 2] Game 46/64 finished.
+    [Batch 2] Game 47/64 finished.
+    [Batch 2] Game 48/64 finished.
+    [Batch 2] Game 49/64 finished.
+    [Batch 2] Game 50/64 finished.
+    [Batch 2] Game 51/64 finished.
+    [Batch 2] Game 52/64 finished.
+    [Batch 2] Game 53/64 finished.
+    [Batch 2] Game 54/64 finished.
+    [Batch 2] Game 55/64 finished.
+    [Batch 2] Game 56/64 finished.
+    [Batch 2] Game 57/64 finished.
+    [Batch 2] Game 58/64 finished.
+    [Batch 2] Game 59/64 finished.
+    [Batch 2] Game 60/64 finished.
+    [Batch 2] Game 61/64 finished.
+    [Batch 2] Game 62/64 finished.
+    [Batch 2] Game 63/64 finished.
+    [Batch 2] Game 64/64 finished.
+>>> All games finished. Pausing batcher for training...
+>>> Training Network...
+>>> 3. Finished.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  04:12 min
+[INFO] Finished at: 2026-01-14T18:26:57+01:00
+[INFO] ------------------------------------------------------------------------
+Shutting down...
+aura:/home/xsvobo10/Project2-1-JanNguyen>$ nice -n 19 mvn clean compile exec:java -Pgpu -DskipTests -Dexec
+.mainClass="AI.AlphaZero.AlphaZeroRunner"
+
+[INFO] Scanning for projects...
+[INFO]
+[INFO] --------------------------< main:team04-app >---------------------------
+[INFO] Building team04-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- clean:3.2.0:clean (default-clean) @ team04-app ---
+[INFO] Deleting /home/xsvobo10/Project2-1-JanNguyen/target
+[INFO]
+[INFO] --- resources:3.3.0:resources (default-resources) @ team04-app ---
+[INFO] Copying 6 resources
+[INFO]
+[INFO] --- compiler:3.11.0:compile (default-compile) @ team04-app ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 45 source files with javac [debug release 21] to target/classes
+[INFO]
+[INFO] --- exec:3.3.0:java (default-cli) @ team04-app ---
+>>> 1. Initializing...
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.deeplearning4j.nn.graph.ComputationGraph - Starting Computa
+tionGraph with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.factory.Nd4jBackend - Loaded [JCublasBackend] b
+ackend
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.nativeblas.NativeOpsHolder - Number of threads used fo
+r linear algebra: 64
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Back
+end used: [CUDA]; OS: [Linux]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Core
+s: [256]; Memory: [29,5GB];
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Blas
+ vendor: [CUBLAS]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build versio
+n: 11.6.124
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 1: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - Backend build informat
+ion:
+ GCC: "7.5.0"
+STD version: 201103L
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+>>> 2. Running Smoke Test (Fast)...
+======================================================================
+               ALPHA ZERO TRAINING SESSION
+======================================================================
+    [Batch 1] Game  1/64 finished.
+    [Batch 1] Game  2/64 finished.
+    [Batch 1] Game  3/64 finished.
+    [Batch 1] Game  4/64 finished.
+    [Batch 1] Game  5/64 finished.
+    [Batch 1] Game  6/64 finished.
+    [Batch 1] Game  7/64 finished.
+    [Batch 1] Game  8/64 finished.
+    [Batch 1] Game  9/64 finished.
+    [Batch 1] Game 10/64 finished.
+    [Batch 1] Game 11/64 finished.
+    [Batch 1] Game 12/64 finished.
+    [Batch 1] Game 13/64 finished.
+    [Batch 1] Game 14/64 finished.
+    [Batch 1] Game 15/64 finished.
+    [Batch 1] Game 16/64 finished.
+    [Batch 1] Game 17/64 finished.
+    [Batch 1] Game 18/64 finished.
+    [Batch 1] Game 19/64 finished.
+    [Batch 1] Game 20/64 finished.
+    [Batch 1] Game 21/64 finished.
+    [Batch 1] Game 22/64 finished.
+    [Batch 1] Game 23/64 finished.
+    [Batch 1] Game 24/64 finished.
+    [Batch 1] Game 25/64 finished.
+    [Batch 1] Game 26/64 finished.
+    [Batch 1] Game 27/64 finished.
+    [Batch 1] Game 28/64 finished.
+    [Batch 1] Game 29/64 finished.
+    [Batch 1] Game 30/64 finished.
+    [Batch 1] Game 31/64 finished.
+    [Batch 1] Game 32/64 finished.
+    [Batch 1] Game 33/64 finished.
+    [Batch 1] Game 34/64 finished.
+    [Batch 1] Game 35/64 finished.
+    [Batch 1] Game 36/64 finished.
+    [Batch 1] Game 37/64 finished.
+    [Batch 1] Game 38/64 finished.
+    [Batch 1] Game 39/64 finished.
+    [Batch 1] Game 40/64 finished.
+    [Batch 1] Game 41/64 finished.
+    [Batch 1] Game 42/64 finished.
+    [Batch 1] Game 43/64 finished.
+    [Batch 1] Game 44/64 finished.
+    [Batch 1] Game 45/64 finished.
+    [Batch 1] Game 46/64 finished.
+    [Batch 1] Game 47/64 finished.
+    [Batch 1] Game 48/64 finished.
+    [Batch 1] Game 49/64 finished.
+    [Batch 1] Game 50/64 finished.
+    [Batch 1] Game 51/64 finished.
+    [Batch 1] Game 52/64 finished.
+    [Batch 1] Game 53/64 finished.
+    [Batch 1] Game 54/64 finished.
+    [Batch 1] Game 55/64 finished.
+    [Batch 1] Game 56/64 finished.
+    [Batch 1] Game 57/64 finished.
+    [Batch 1] Game 58/64 finished.
+    [Batch 1] Game 59/64 finished.
+    [Batch 1] Game 60/64 finished.
+    [Batch 1] Game 61/64 finished.
+    [Batch 1] Game 62/64 finished.
+    [Batch 1] Game 63/64 finished.
+    [Batch 1] Game 64/64 finished.
+>>> All games finished. Pausing batcher for training...
+>>> Training Network...
+    [Batch 2] Game  1/64 finished.
+    [Batch 2] Game  2/64 finished.
+    [Batch 2] Game  3/64 finished.
+    [Batch 2] Game  4/64 finished.
+    [Batch 2] Game  5/64 finished.
+    [Batch 2] Game  6/64 finished.
+    [Batch 2] Game  7/64 finished.
+    [Batch 2] Game  8/64 finished.
+    [Batch 2] Game  9/64 finished.
+    [Batch 2] Game 10/64 finished.
+    [Batch 2] Game 11/64 finished.
+    [Batch 2] Game 12/64 finished.
+    [Batch 2] Game 13/64 finished.
+    [Batch 2] Game 14/64 finished.
+    [Batch 2] Game 15/64 finished.
+    [Batch 2] Game 16/64 finished.
+    [Batch 2] Game 17/64 finished.
+    [Batch 2] Game 18/64 finished.
+    [Batch 2] Game 19/64 finished.
+    [Batch 2] Game 20/64 finished.
+    [Batch 2] Game 21/64 finished.
+    [Batch 2] Game 22/64 finished.
+    [Batch 2] Game 23/64 finished.
+    [Batch 2] Game 24/64 finished.
+    [Batch 2] Game 25/64 finished.
+    [Batch 2] Game 26/64 finished.
+    [Batch 2] Game 27/64 finished.
+    [Batch 2] Game 28/64 finished.
+    [Batch 2] Game 29/64 finished.
+    [Batch 2] Game 30/64 finished.
+    [Batch 2] Game 31/64 finished.
+    [Batch 2] Game 32/64 finished.
+    [Batch 2] Game 33/64 finished.
+    [Batch 2] Game 34/64 finished.
+    [Batch 2] Game 35/64 finished.
+    [Batch 2] Game 36/64 finished.
+    [Batch 2] Game 37/64 finished.
+    [Batch 2] Game 38/64 finished.
+    [Batch 2] Game 39/64 finished.
+    [Batch 2] Game 40/64 finished.
+    [Batch 2] Game 41/64 finished.
+    [Batch 2] Game 42/64 finished.
+    [Batch 2] Game 43/64 finished.
+    [Batch 2] Game 44/64 finished.
+    [Batch 2] Game 45/64 finished.
+    [Batch 2] Game 46/64 finished.
+    [Batch 2] Game 47/64 finished.
+    [Batch 2] Game 48/64 finished.
+    [Batch 2] Game 49/64 finished.
+    [Batch 2] Game 50/64 finished.
+    [Batch 2] Game 51/64 finished.
+    [Batch 2] Game 52/64 finished.
+    [Batch 2] Game 53/64 finished.
+    [Batch 2] Game 54/64 finished.
+    [Batch 2] Game 55/64 finished.
+    [Batch 2] Game 56/64 finished.
+    [Batch 2] Game 57/64 finished.
+    [Batch 2] Game 58/64 finished.
+    [Batch 2] Game 59/64 finished.
+    [Batch 2] Game 60/64 finished.
+    [Batch 2] Game 61/64 finished.
+    [Batch 2] Game 62/64 finished.
+    [Batch 2] Game 63/64 finished.
+    [Batch 2] Game 64/64 finished.
+>>> All games finished. Pausing batcher for training...
+>>> Training Network...
+>>> 3. Finished.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  02:57 min
+[INFO] Finished at: 2026-01-14T18:31:00+01:00
+[INFO] ------------------------------------------------------------------------
+Shutting down...
+aura:/home/xsvobo10/Project2-1-JanNguyen>$ nice -n 19 mvn clean compile exec:java -Pgpu -DskipTests -Dexec
+.mainClass="AI.AlphaZero.AlphaZeroRunner"
+[INFO] Scanning for projects...
+[INFO]
+[INFO] --------------------------< main:team04-app >---------------------------
+[INFO] Building team04-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- clean:3.2.0:clean (default-clean) @ team04-app ---
+[INFO] Deleting /home/xsvobo10/Project2-1-JanNguyen/target
+[INFO]
+[INFO] --- resources:3.3.0:resources (default-resources) @ team04-app ---
+[INFO] Copying 6 resources
+[INFO]
+[INFO] --- compiler:3.11.0:compile (default-compile) @ team04-app ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 45 source files with javac [debug release 21] to target/classes
+[INFO]
+[INFO] --- exec:3.3.0:java (default-cli) @ team04-app ---
+>>> 1. Initializing...
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.factory.Nd4jBackend - Loaded [JCublasBackend] b
+ackend
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.nativeblas.NativeOpsHolder - Number of threads used fo
+r linear algebra: 64
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Back
+end used: [CUDA]; OS: [Linux]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Core
+s: [256]; Memory: [29,5GB];
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Blas
+ vendor: [CUBLAS]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build versio
+n: 11.6.124
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 1: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - Backend build informat
+ion:
+ GCC: "7.5.0"
+STD version: 201103L
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+Backend: JCublasBackend
+Available GPU devices: 2
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.deeplearning4j.nn.graph.ComputationGraph - Starting Computa
+tionGraph with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+>>> 2. Running Smoke Test (Fast)...
+======================================================================
+               ALPHA ZERO TRAINING SESSION
+======================================================================
+    [Batch 1] Game  1/256 finished.
+    [Batch 1] Game  2/256 finished.
+    [Batch 1] Game  3/256 finished.
+    [Batch 1] Game  4/256 finished.
+    [Batch 1] Game  5/256 finished.
+    [Batch 1] Game  6/256 finished.
+    [Batch 1] Game  7/256 finished.
+    [Batch 1] Game  8/256 finished.
+    [Batch 1] Game  9/256 finished.
+    [Batch 1] Game 10/256 finished.
+    [Batch 1] Game 11/256 finished.
+    [Batch 1] Game 12/256 finished.
+    [Batch 1] Game 13/256 finished.
+    [Batch 1] Game 14/256 finished.
+    [Batch 1] Game 15/256 finished.
+    [Batch 1] Game 16/256 finished.
+    [Batch 1] Game 17/256 finished.
+    [Batch 1] Game 18/256 finished.
+    [Batch 1] Game 19/256 finished.
+    [Batch 1] Game 20/256 finished.
+    [Batch 1] Game 21/256 finished.
+    [Batch 1] Game 22/256 finished.
+    [Batch 1] Game 23/256 finished.
+    [Batch 1] Game 24/256 finished.
+    [Batch 1] Game 25/256 finished.
+    [Batch 1] Game 26/256 finished.
+    [Batch 1] Game 27/256 finished.
+    [Batch 1] Game 28/256 finished.
+    [Batch 1] Game 29/256 finished.
+    [Batch 1] Game 30/256 finished.
+    [Batch 1] Game 31/256 finished.
+    [Batch 1] Game 32/256 finished.
+    [Batch 1] Game 33/256 finished.
+    [Batch 1] Game 34/256 finished.
+    [Batch 1] Game 35/256 finished.
+    [Batch 1] Game 36/256 finished.
+    [Batch 1] Game 37/256 finished.
+    [Batch 1] Game 38/256 finished.
+    [Batch 1] Game 39/256 finished.
+    [Batch 1] Game 40/256 finished.
+    [Batch 1] Game 41/256 finished.
+    [Batch 1] Game 42/256 finished.
+    [Batch 1] Game 43/256 finished.
+    [Batch 1] Game 44/256 finished.
+    [Batch 1] Game 45/256 finished.
+    [Batch 1] Game 46/256 finished.
+    [Batch 1] Game 47/256 finished.
+    [Batch 1] Game 48/256 finished.
+^CShutting down...
+aura:/home/xsvobo10/Project2-1-JanNguyen>$ nice -n 19 mvn clean compile exec:java -Pgpu -DskipTests \
+  -Dexec.mainClass="AI.AlphaZero.AlphaZeroRunner" \
+  -Dexec.args="-Xmx32G -Xms32G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Dorg.bytedeco.javacpp.nopointergc=tr
+ue"
+[INFO] Scanning for projects...
+[INFO]
+[INFO] --------------------------< main:team04-app >---------------------------
+[INFO] Building team04-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- clean:3.2.0:clean (default-clean) @ team04-app ---
+[INFO] Deleting /home/xsvobo10/Project2-1-JanNguyen/target
+[INFO]
+[INFO] --- resources:3.3.0:resources (default-resources) @ team04-app ---
+[INFO] Copying 6 resources
+[INFO]
+[INFO] --- compiler:3.11.0:compile (default-compile) @ team04-app ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 45 source files with javac [debug release 21] to target/classes
+[INFO]
+[INFO] --- exec:3.3.0:java (default-cli) @ team04-app ---
+>>> 1. Initializing...
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.factory.Nd4jBackend - Loaded [JCublasBackend] b
+ackend
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.nativeblas.NativeOpsHolder - Number of threads used fo
+r linear algebra: 64
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Back
+end used: [CUDA]; OS: [Linux]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Core
+s: [256]; Memory: [29,5GB];
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Blas
+ vendor: [CUBLAS]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build versio
+n: 11.6.124
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 1: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - Backend build informat
+ion:
+ GCC: "7.5.0"
+STD version: 201103L
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+Backend: JCublasBackend
+Available GPU devices: 2
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.deeplearning4j.nn.graph.ComputationGraph - Starting Computa
+tionGraph with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+>>> 2. Running Smoke Test (Fast)...
+======================================================================
+               ALPHA ZERO TRAINING SESSION
+======================================================================
+    [Batch 1] Game  1/256 finished.
+    [Batch 1] Game  2/256 finished.
+    [Batch 1] Game  3/256 finished.
+    [Batch 1] Game  4/256 finished.
+    [Batch 1] Game  5/256 finished.
+    [Batch 1] Game  6/256 finished.
+    [Batch 1] Game  7/256 finished.
+    [Batch 1] Game  8/256 finished.
+    [Batch 1] Game  9/256 finished.
+    [Batch 1] Game 10/256 finished.
+    [Batch 1] Game 11/256 finished.
+    [Batch 1] Game 12/256 finished.
+    [Batch 1] Game 13/256 finished.
+    [Batch 1] Game 14/256 finished.
+    [Batch 1] Game 15/256 finished.
+    [Batch 1] Game 16/256 finished.
+    [Batch 1] Game 17/256 finished.
+    [Batch 1] Game 18/256 finished.
+    [Batch 1] Game 19/256 finished.
+    [Batch 1] Game 20/256 finished.
+    [Batch 1] Game 21/256 finished.
+    [Batch 1] Game 22/256 finished.
+    [Batch 1] Game 23/256 finished.
+    [Batch 1] Game 24/256 finished.
+    [Batch 1] Game 25/256 finished.
+    [Batch 1] Game 26/256 finished.
+    [Batch 1] Game 27/256 finished.
+    [Batch 1] Game 28/256 finished.
+    [Batch 1] Game 29/256 finished.
+    [Batch 1] Game 30/256 finished.
+    [Batch 1] Game 31/256 finished.
+    [Batch 1] Game 32/256 finished.
+    [Batch 1] Game 33/256 finished.
+    [Batch 1] Game 34/256 finished.
+    [Batch 1] Game 35/256 finished.
+    [Batch 1] Game 36/256 finished.
+    [Batch 1] Game 37/256 finished.
+    [Batch 1] Game 38/256 finished.
+    [Batch 1] Game 39/256 finished.
+    [Batch 1] Game 40/256 finished.
+    [Batch 1] Game 41/256 finished.
+    [Batch 1] Game 42/256 finished.
+    [Batch 1] Game 43/256 finished.
+    [Batch 1] Game 44/256 finished.
+    [Batch 1] Game 45/256 finished.
+    [Batch 1] Game 46/256 finished.
+    [Batch 1] Game 47/256 finished.
+    [Batch 1] Game 48/256 finished.
+    [Batch 1] Game 49/256 finished.
+    [Batch 1] Game 50/256 finished.
+    [Batch 1] Game 51/256 finished.
+    [Batch 1] Game 52/256 finished.
+    [Batch 1] Game 53/256 finished.
+    [Batch 1] Game 54/256 finished.
+    [Batch 1] Game 55/256 finished.
+    [Batch 1] Game 56/256 finished.
+    [Batch 1] Game 57/256 finished.
+    [Batch 1] Game 58/256 finished.
+    [Batch 1] Game 59/256 finished.
+    [Batch 1] Game 60/256 finished.
+    [Batch 1] Game 61/256 finished.
+    [Batch 1] Game 62/256 finished.
+    [Batch 1] Game 63/256 finished.
+    [Batch 1] Game 64/256 finished.
+    [Batch 1] Game 65/256 finished.
+    [Batch 1] Game 66/256 finished.
+    [Batch 1] Game 67/256 finished.
+    [Batch 1] Game 68/256 finished.
+    [Batch 1] Game 69/256 finished.
+    [Batch 1] Game 70/256 finished.
+    [Batch 1] Game 71/256 finished.
+    [Batch 1] Game 72/256 finished.
+    [Batch 1] Game 73/256 finished.
+    [Batch 1] Game 74/256 finished.
+    [Batch 1] Game 75/256 finished.
+    [Batch 1] Game 76/256 finished.
+    [Batch 1] Game 77/256 finished.
+    [Batch 1] Game 78/256 finished.
+    [Batch 1] Game 79/256 finished.
+    [Batch 1] Game 80/256 finished.
+    [Batch 1] Game 81/256 finished.
+    [Batch 1] Game 82/256 finished.
+    [Batch 1] Game 83/256 finished.
+    [Batch 1] Game 84/256 finished.
+    [Batch 1] Game 85/256 finished.
+    [Batch 1] Game 86/256 finished.
+    [Batch 1] Game 87/256 finished.
+    [Batch 1] Game 88/256 finished.
+    [Batch 1] Game 89/256 finished.
+    [Batch 1] Game 90/256 finished.
+    [Batch 1] Game 91/256 finished.
+    [Batch 1] Game 92/256 finished.
+    [Batch 1] Game 93/256 finished.
+    [Batch 1] Game 94/256 finished.
+    [Batch 1] Game 95/256 finished.
+    [Batch 1] Game 96/256 finished.
+    [Batch 1] Game 97/256 finished.
+    [Batch 1] Game 98/256 finished.
+    [Batch 1] Game 99/256 finished.
+    [Batch 1] Game 100/256 finished.
+    [Batch 1] Game 101/256 finished.
+    [Batch 1] Game 102/256 finished.
+    [Batch 1] Game 103/256 finished.
+    [Batch 1] Game 104/256 finished.
+    [Batch 1] Game 105/256 finished.
+    [Batch 1] Game 106/256 finished.
+    [Batch 1] Game 107/256 finished.
+    [Batch 1] Game 108/256 finished.
+    [Batch 1] Game 109/256 finished.
+    [Batch 1] Game 110/256 finished.
+    [Batch 1] Game 111/256 finished.
+    [Batch 1] Game 112/256 finished.
+    [Batch 1] Game 113/256 finished.
+    [Batch 1] Game 114/256 finished.
+    [Batch 1] Game 115/256 finished.
+    [Batch 1] Game 116/256 finished.
+    [Batch 1] Game 117/256 finished.
+    [Batch 1] Game 118/256 finished.
+    [Batch 1] Game 119/256 finished.
+    [Batch 1] Game 120/256 finished.
+    [Batch 1] Game 121/256 finished.
+    [Batch 1] Game 122/256 finished.
+    [Batch 1] Game 123/256 finished.
+    [Batch 1] Game 124/256 finished.
+    [Batch 1] Game 125/256 finished.
+    [Batch 1] Game 126/256 finished.
+    [Batch 1] Game 127/256 finished.
+    [Batch 1] Game 128/256 finished.
+    [Batch 1] Game 129/256 finished.
+    [Batch 1] Game 130/256 finished.
+    [Batch 1] Game 131/256 finished.
+    [Batch 1] Game 132/256 finished.
+    [Batch 1] Game 133/256 finished.
+    [Batch 1] Game 134/256 finished.
+    [Batch 1] Game 135/256 finished.
+    [Batch 1] Game 136/256 finished.
+    [Batch 1] Game 137/256 finished.
+    [Batch 1] Game 138/256 finished.
+    [Batch 1] Game 139/256 finished.
+    [Batch 1] Game 140/256 finished.
+    [Batch 1] Game 141/256 finished.
+    [Batch 1] Game 142/256 finished.
+    [Batch 1] Game 143/256 finished.
+    [Batch 1] Game 144/256 finished.
+    [Batch 1] Game 145/256 finished.
+    [Batch 1] Game 146/256 finished.
+    [Batch 1] Game 147/256 finished.
+    [Batch 1] Game 148/256 finished.
+    [Batch 1] Game 149/256 finished.
+    [Batch 1] Game 150/256 finished.
+    [Batch 1] Game 151/256 finished.
+    [Batch 1] Game 152/256 finished.
+    [Batch 1] Game 153/256 finished.
+    [Batch 1] Game 154/256 finished.
+    [Batch 1] Game 155/256 finished.
+    [Batch 1] Game 156/256 finished.
+    [Batch 1] Game 157/256 finished.
+    [Batch 1] Game 158/256 finished.
+    [Batch 1] Game 159/256 finished.
+    [Batch 1] Game 160/256 finished.
+    [Batch 1] Game 161/256 finished.
+    [Batch 1] Game 162/256 finished.
+    [Batch 1] Game 163/256 finished.
+    [Batch 1] Game 164/256 finished.
+    [Batch 1] Game 165/256 finished.
+    [Batch 1] Game 166/256 finished.
+    [Batch 1] Game 167/256 finished.
+    [Batch 1] Game 168/256 finished.
+    [Batch 1] Game 169/256 finished.
+    [Batch 1] Game 170/256 finished.
+    [Batch 1] Game 171/256 finished.
+    [Batch 1] Game 172/256 finished.
+    [Batch 1] Game 173/256 finished.
+    [Batch 1] Game 174/256 finished.
+    [Batch 1] Game 175/256 finished.
+    [Batch 1] Game 176/256 finished.
+    [Batch 1] Game 177/256 finished.
+    [Batch 1] Game 178/256 finished.
+    [Batch 1] Game 179/256 finished.
+    [Batch 1] Game 180/256 finished.
+    [Batch 1] Game 181/256 finished.
+    [Batch 1] Game 182/256 finished.
+    [Batch 1] Game 183/256 finished.
+    [Batch 1] Game 184/256 finished.
+    [Batch 1] Game 185/256 finished.
+    [Batch 1] Game 186/256 finished.
+    [Batch 1] Game 187/256 finished.
+    [Batch 1] Game 188/256 finished.
+    [Batch 1] Game 189/256 finished.
+    [Batch 1] Game 190/256 finished.
+    [Batch 1] Game 191/256 finished.
+    [Batch 1] Game 192/256 finished.
+    [Batch 1] Game 193/256 finished.
+    [Batch 1] Game 194/256 finished.
+    [Batch 1] Game 195/256 finished.
+    [Batch 1] Game 196/256 finished.
+    [Batch 1] Game 197/256 finished.
+    [Batch 1] Game 198/256 finished.
+    [Batch 1] Game 199/256 finished.
+    [Batch 1] Game 200/256 finished.
+    [Batch 1] Game 201/256 finished.
+    [Batch 1] Game 202/256 finished.
+    [Batch 1] Game 203/256 finished.
+    [Batch 1] Game 204/256 finished.
+    [Batch 1] Game 205/256 finished.
+    [Batch 1] Game 206/256 finished.
+    [Batch 1] Game 207/256 finished.
+    [Batch 1] Game 208/256 finished.
+    [Batch 1] Game 209/256 finished.
+    [Batch 1] Game 210/256 finished.
+    [Batch 1] Game 211/256 finished.
+    [Batch 1] Game 212/256 finished.
+    [Batch 1] Game 213/256 finished.
+    [Batch 1] Game 214/256 finished.
+    [Batch 1] Game 215/256 finished.
+    [Batch 1] Game 216/256 finished.
+    [Batch 1] Game 217/256 finished.
+    [Batch 1] Game 218/256 finished.
+    [Batch 1] Game 219/256 finished.
+    [Batch 1] Game 220/256 finished.
+    [Batch 1] Game 221/256 finished.
+    [Batch 1] Game 222/256 finished.
+    [Batch 1] Game 223/256 finished.
+    [Batch 1] Game 224/256 finished.
+    [Batch 1] Game 225/256 finished.
+    [Batch 1] Game 226/256 finished.
+    [Batch 1] Game 227/256 finished.
+    [Batch 1] Game 228/256 finished.
+    [Batch 1] Game 229/256 finished.
+    [Batch 1] Game 230/256 finished.
+    [Batch 1] Game 231/256 finished.
+    [Batch 1] Game 232/256 finished.
+    [Batch 1] Game 233/256 finished.
+    [Batch 1] Game 234/256 finished.
+    [Batch 1] Game 235/256 finished.
+    [Batch 1] Game 236/256 finished.
+    [Batch 1] Game 237/256 finished.
+    [Batch 1] Game 238/256 finished.
+    [Batch 1] Game 239/256 finished.
+    [Batch 1] Game 240/256 finished.
+    [Batch 1] Game 241/256 finished.
+    [Batch 1] Game 242/256 finished.
+    [Batch 1] Game 243/256 finished.
+    [Batch 1] Game 244/256 finished.
+    [Batch 1] Game 245/256 finished.
+    [Batch 1] Game 246/256 finished.
+    [Batch 1] Game 247/256 finished.
+    [Batch 1] Game 248/256 finished.
+    [Batch 1] Game 249/256 finished.
+    [Batch 1] Game 250/256 finished.
+    [Batch 1] Game 251/256 finished.
+    [Batch 1] Game 252/256 finished.
+    [Batch 1] Game 253/256 finished.
+    [Batch 1] Game 254/256 finished.
+    [Batch 1] Game 255/256 finished.
+    [Batch 1] Game 256/256 finished.
+>>> All games finished. Pausing batcher for training...
+>>> Training Network...
+    [Batch 2] Game  1/256 finished.
+    [Batch 2] Game  2/256 finished.
+    [Batch 2] Game  3/256 finished.
+    [Batch 2] Game  4/256 finished.
+    [Batch 2] Game  5/256 finished.
+    [Batch 2] Game  6/256 finished.
+    [Batch 2] Game  7/256 finished.
+    [Batch 2] Game  8/256 finished.
+    [Batch 2] Game  9/256 finished.
+    [Batch 2] Game 10/256 finished.
+    [Batch 2] Game 11/256 finished.
+    [Batch 2] Game 12/256 finished.
+    [Batch 2] Game 13/256 finished.
+    [Batch 2] Game 14/256 finished.
+    [Batch 2] Game 15/256 finished.
+    [Batch 2] Game 16/256 finished.
+    [Batch 2] Game 17/256 finished.
+    [Batch 2] Game 18/256 finished.
+    [Batch 2] Game 19/256 finished.
+    [Batch 2] Game 20/256 finished.
+    [Batch 2] Game 21/256 finished.
+    [Batch 2] Game 22/256 finished.
+    [Batch 2] Game 23/256 finished.
+    [Batch 2] Game 24/256 finished.
+    [Batch 2] Game 25/256 finished.
+    [Batch 2] Game 26/256 finished.
+    [Batch 2] Game 27/256 finished.
+    [Batch 2] Game 28/256 finished.
+    [Batch 2] Game 29/256 finished.
+    [Batch 2] Game 30/256 finished.
+    [Batch 2] Game 31/256 finished.
+    [Batch 2] Game 32/256 finished.
+    [Batch 2] Game 33/256 finished.
+    [Batch 2] Game 34/256 finished.
+    [Batch 2] Game 35/256 finished.
+    [Batch 2] Game 36/256 finished.
+    [Batch 2] Game 37/256 finished.
+    [Batch 2] Game 38/256 finished.
+    [Batch 2] Game 39/256 finished.
+    [Batch 2] Game 40/256 finished.
+    [Batch 2] Game 41/256 finished.
+    [Batch 2] Game 42/256 finished.
+    [Batch 2] Game 43/256 finished.
+    [Batch 2] Game 44/256 finished.
+    [Batch 2] Game 45/256 finished.
+    [Batch 2] Game 46/256 finished.
+    [Batch 2] Game 47/256 finished.
+    [Batch 2] Game 48/256 finished.
+    [Batch 2] Game 49/256 finished.
+    [Batch 2] Game 50/256 finished.
+    [Batch 2] Game 51/256 finished.
+    [Batch 2] Game 52/256 finished.
+    [Batch 2] Game 53/256 finished.
+    [Batch 2] Game 54/256 finished.
+    [Batch 2] Game 55/256 finished.
+    [Batch 2] Game 56/256 finished.
+    [Batch 2] Game 57/256 finished.
+    [Batch 2] Game 58/256 finished.
+    [Batch 2] Game 59/256 finished.
+    [Batch 2] Game 60/256 finished.
+    [Batch 2] Game 61/256 finished.
+    [Batch 2] Game 62/256 finished.
+    [Batch 2] Game 63/256 finished.
+    [Batch 2] Game 64/256 finished.
+    [Batch 2] Game 65/256 finished.
+    [Batch 2] Game 66/256 finished.
+    [Batch 2] Game 67/256 finished.
+    [Batch 2] Game 68/256 finished.
+    [Batch 2] Game 69/256 finished.
+    [Batch 2] Game 70/256 finished.
+    [Batch 2] Game 71/256 finished.
+    [Batch 2] Game 72/256 finished.
+    [Batch 2] Game 73/256 finished.
+    [Batch 2] Game 74/256 finished.
+    [Batch 2] Game 75/256 finished.
+    [Batch 2] Game 76/256 finished.
+    [Batch 2] Game 77/256 finished.
+    [Batch 2] Game 78/256 finished.
+    [Batch 2] Game 79/256 finished.
+    [Batch 2] Game 80/256 finished.
+    [Batch 2] Game 81/256 finished.
+    [Batch 2] Game 82/256 finished.
+    [Batch 2] Game 83/256 finished.
+    [Batch 2] Game 84/256 finished.
+    [Batch 2] Game 85/256 finished.
+    [Batch 2] Game 86/256 finished.
+    [Batch 2] Game 87/256 finished.
+    [Batch 2] Game 88/256 finished.
+    [Batch 2] Game 89/256 finished.
+    [Batch 2] Game 90/256 finished.
+    [Batch 2] Game 91/256 finished.
+    [Batch 2] Game 92/256 finished.
+    [Batch 2] Game 93/256 finished.
+    [Batch 2] Game 94/256 finished.
+    [Batch 2] Game 95/256 finished.
+    [Batch 2] Game 96/256 finished.
+    [Batch 2] Game 97/256 finished.
+    [Batch 2] Game 98/256 finished.
+    [Batch 2] Game 99/256 finished.
+    [Batch 2] Game 100/256 finished.
+    [Batch 2] Game 101/256 finished.
+    [Batch 2] Game 102/256 finished.
+    [Batch 2] Game 103/256 finished.
+    [Batch 2] Game 104/256 finished.
+    [Batch 2] Game 105/256 finished.
+    [Batch 2] Game 106/256 finished.
+    [Batch 2] Game 107/256 finished.
+    [Batch 2] Game 108/256 finished.
+    [Batch 2] Game 109/256 finished.
+    [Batch 2] Game 110/256 finished.
+    [Batch 2] Game 111/256 finished.
+    [Batch 2] Game 112/256 finished.
+    [Batch 2] Game 113/256 finished.
+    [Batch 2] Game 114/256 finished.
+    [Batch 2] Game 115/256 finished.
+    [Batch 2] Game 116/256 finished.
+    [Batch 2] Game 117/256 finished.
+    [Batch 2] Game 118/256 finished.
+    [Batch 2] Game 119/256 finished.
+    [Batch 2] Game 120/256 finished.
+    [Batch 2] Game 121/256 finished.
+    [Batch 2] Game 122/256 finished.
+    [Batch 2] Game 123/256 finished.
+    [Batch 2] Game 124/256 finished.
+    [Batch 2] Game 125/256 finished.
+    [Batch 2] Game 126/256 finished.
+    [Batch 2] Game 127/256 finished.
+    [Batch 2] Game 128/256 finished.
+    [Batch 2] Game 129/256 finished.
+    [Batch 2] Game 130/256 finished.
+    [Batch 2] Game 131/256 finished.
+    [Batch 2] Game 132/256 finished.
+    [Batch 2] Game 133/256 finished.
+    [Batch 2] Game 134/256 finished.
+    [Batch 2] Game 135/256 finished.
+    [Batch 2] Game 136/256 finished.
+    [Batch 2] Game 137/256 finished.
+    [Batch 2] Game 138/256 finished.
+    [Batch 2] Game 139/256 finished.
+    [Batch 2] Game 140/256 finished.
+    [Batch 2] Game 141/256 finished.
+    [Batch 2] Game 142/256 finished.
+    [Batch 2] Game 143/256 finished.
+    [Batch 2] Game 144/256 finished.
+    [Batch 2] Game 145/256 finished.
+    [Batch 2] Game 146/256 finished.
+    [Batch 2] Game 147/256 finished.
+    [Batch 2] Game 148/256 finished.
+    [Batch 2] Game 149/256 finished.
+    [Batch 2] Game 150/256 finished.
+    [Batch 2] Game 151/256 finished.
+    [Batch 2] Game 152/256 finished.
+    [Batch 2] Game 153/256 finished.
+    [Batch 2] Game 154/256 finished.
+    [Batch 2] Game 155/256 finished.
+    [Batch 2] Game 156/256 finished.
+    [Batch 2] Game 157/256 finished.
+    [Batch 2] Game 158/256 finished.
+    [Batch 2] Game 159/256 finished.
+    [Batch 2] Game 160/256 finished.
+    [Batch 2] Game 161/256 finished.
+    [Batch 2] Game 162/256 finished.
+    [Batch 2] Game 163/256 finished.
+    [Batch 2] Game 164/256 finished.
+    [Batch 2] Game 165/256 finished.
+    [Batch 2] Game 166/256 finished.
+    [Batch 2] Game 167/256 finished.
+    [Batch 2] Game 168/256 finished.
+    [Batch 2] Game 169/256 finished.
+    [Batch 2] Game 170/256 finished.
+    [Batch 2] Game 171/256 finished.
+    [Batch 2] Game 172/256 finished.
+    [Batch 2] Game 173/256 finished.
+    [Batch 2] Game 174/256 finished.
+    [Batch 2] Game 175/256 finished.
+    [Batch 2] Game 176/256 finished.
+    [Batch 2] Game 177/256 finished.
+    [Batch 2] Game 178/256 finished.
+    [Batch 2] Game 179/256 finished.
+    [Batch 2] Game 180/256 finished.
+    [Batch 2] Game 181/256 finished.
+    [Batch 2] Game 182/256 finished.
+    [Batch 2] Game 183/256 finished.
+    [Batch 2] Game 184/256 finished.
+    [Batch 2] Game 185/256 finished.
+    [Batch 2] Game 186/256 finished.
+    [Batch 2] Game 187/256 finished.
+    [Batch 2] Game 188/256 finished.
+    [Batch 2] Game 189/256 finished.
+    [Batch 2] Game 190/256 finished.
+    [Batch 2] Game 191/256 finished.
+    [Batch 2] Game 192/256 finished.
+    [Batch 2] Game 193/256 finished.
+    [Batch 2] Game 194/256 finished.
+    [Batch 2] Game 195/256 finished.
+    [Batch 2] Game 196/256 finished.
+    [Batch 2] Game 197/256 finished.
+    [Batch 2] Game 198/256 finished.
+    [Batch 2] Game 199/256 finished.
+    [Batch 2] Game 200/256 finished.
+    [Batch 2] Game 201/256 finished.
+    [Batch 2] Game 202/256 finished.
+    [Batch 2] Game 203/256 finished.
+    [Batch 2] Game 204/256 finished.
+    [Batch 2] Game 205/256 finished.
+    [Batch 2] Game 206/256 finished.
+    [Batch 2] Game 207/256 finished.
+    [Batch 2] Game 208/256 finished.
+    [Batch 2] Game 209/256 finished.
+    [Batch 2] Game 210/256 finished.
+    [Batch 2] Game 211/256 finished.
+    [Batch 2] Game 212/256 finished.
+    [Batch 2] Game 213/256 finished.
+    [Batch 2] Game 214/256 finished.
+    [Batch 2] Game 215/256 finished.
+    [Batch 2] Game 216/256 finished.
+    [Batch 2] Game 217/256 finished.
+    [Batch 2] Game 218/256 finished.
+    [Batch 2] Game 219/256 finished.
+    [Batch 2] Game 220/256 finished.
+    [Batch 2] Game 221/256 finished.
+    [Batch 2] Game 222/256 finished.
+    [Batch 2] Game 223/256 finished.
+    [Batch 2] Game 224/256 finished.
+    [Batch 2] Game 225/256 finished.
+    [Batch 2] Game 226/256 finished.
+    [Batch 2] Game 227/256 finished.
+    [Batch 2] Game 228/256 finished.
+    [Batch 2] Game 229/256 finished.
+    [Batch 2] Game 230/256 finished.
+    [Batch 2] Game 231/256 finished.
+    [Batch 2] Game 232/256 finished.
+    [Batch 2] Game 233/256 finished.
+    [Batch 2] Game 234/256 finished.
+    [Batch 2] Game 235/256 finished.
+    [Batch 2] Game 236/256 finished.
+    [Batch 2] Game 237/256 finished.
+    [Batch 2] Game 238/256 finished.
+    [Batch 2] Game 239/256 finished.
+    [Batch 2] Game 240/256 finished.
+    [Batch 2] Game 241/256 finished.
+    [Batch 2] Game 242/256 finished.
+    [Batch 2] Game 243/256 finished.
+    [Batch 2] Game 244/256 finished.
+    [Batch 2] Game 245/256 finished.
+    [Batch 2] Game 246/256 finished.
+    [Batch 2] Game 247/256 finished.
+    [Batch 2] Game 248/256 finished.
+    [Batch 2] Game 249/256 finished.
+    [Batch 2] Game 250/256 finished.
+    [Batch 2] Game 251/256 finished.
+    [Batch 2] Game 252/256 finished.
+    [Batch 2] Game 253/256 finished.
+    [Batch 2] Game 254/256 finished.
+    [Batch 2] Game 255/256 finished.
+    [Batch 2] Game 256/256 finished.
+>>> All games finished. Pausing batcher for training...
+>>> Training Network...
+>>> 3. Finished.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  10:32 min
+[INFO] Finished at: 2026-01-14T18:49:57+01:00
+[INFO] ------------------------------------------------------------------------
+Shutting down...
+aura:/home/xsvobo10/Project2-1-JanNguyen>$ nice -n 19 mvn clean compile exec:java -Pgpu -DskipTests \
+
+
+  -Dexec.mainClass="AI.AlphaZero.AlphaZeroRunner" \
+  -Dexec.args="-Xmx32G -Xms32G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Dorg.bytedeco.javacpp.nopointergc=tr
+ue"
+[INFO] Scanning for projects...
+[INFO]
+[INFO] --------------------------< main:team04-app >---------------------------
+[INFO] Building team04-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- clean:3.2.0:clean (default-clean) @ team04-app ---
+[INFO] Deleting /home/xsvobo10/Project2-1-JanNguyen/target
+[INFO]
+[INFO] --- resources:3.3.0:resources (default-resources) @ team04-app ---
+[INFO] Copying 6 resources
+[INFO]
+[INFO] --- compiler:3.11.0:compile (default-compile) @ team04-app ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 45 source files with javac [debug release 21] to target/classes
+[INFO]
+[INFO] --- exec:3.3.0:java (default-cli) @ team04-app ---
+>>> 1. Initializing...
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.factory.Nd4jBackend - Loaded [JCublasBackend] b
+ackend
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.nativeblas.NativeOpsHolder - Number of threads used fo
+r linear algebra: 64
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Back
+end used: [CUDA]; OS: [Linux]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Core
+s: [256]; Memory: [29,5GB];
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Blas
+ vendor: [CUBLAS]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build versio
+n: 11.6.124
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 1: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - Backend build informat
+ion:
+ GCC: "7.5.0"
+STD version: 201103L
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+Backend: JCublasBackend
+Available GPU devices: 2
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.deeplearning4j.nn.graph.ComputationGraph - Starting Computa
+tionGraph with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+>>> 2. Running Smoke Test (Fast)...
+[WARNING]
+java.lang.NumberFormatException: For input string: "-Xmx32G"
+    at java.lang.NumberFormatException.forInputString (NumberFormatException.java:67)
+    at java.lang.Integer.parseInt (Integer.java:662)
+    at java.lang.Integer.parseInt (Integer.java:778)
+    at AI.AlphaZero.AlphaZeroRunner.main (AlphaZeroRunner.java:16)
+    at org.codehaus.mojo.exec.ExecJavaMojo.doMain (ExecJavaMojo.java:385)
+    at org.codehaus.mojo.exec.ExecJavaMojo.doExec (ExecJavaMojo.java:374)
+    at org.codehaus.mojo.exec.ExecJavaMojo.lambda$execute$0 (ExecJavaMojo.java:296)
+    at java.lang.Thread.run (Thread.java:1583)
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.913 s
+[INFO] Finished at: 2026-01-14T18:58:07+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.codehaus.mojo:exec-maven-plugin:3.3.0:java (default-cli) on project tea
+m04-app: An exception occurred while executing the Java class. For input string: "-Xmx32G" -> [Help 1]
+[ERROR]
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR]
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+Shutting down...
+aura:/home/xsvobo10/Project2-1-JanNguyen>$ nice -n 19 mvn clean compile exec:java -Pgpu -DskipTests -Dexec
+.mainClass="AI.AlphaZero.AlphaZeroRunner"
+
+[INFO] Scanning for projects...
+[INFO]
+[INFO] --------------------------< main:team04-app >---------------------------
+[INFO] Building team04-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- clean:3.2.0:clean (default-clean) @ team04-app ---
+[INFO] Deleting /home/xsvobo10/Project2-1-JanNguyen/target
+[INFO]
+[INFO] --- resources:3.3.0:resources (default-resources) @ team04-app ---
+[INFO] Copying 6 resources
+[INFO]
+[INFO] --- compiler:3.11.0:compile (default-compile) @ team04-app ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 45 source files with javac [debug release 21] to target/classes
+[INFO]
+[INFO] --- exec:3.3.0:java (default-cli) @ team04-app ---
+>>> 1. Initializing...
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.factory.Nd4jBackend - Loaded [JCublasBackend] b
+ackend
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.nativeblas.NativeOpsHolder - Number of threads used fo
+r linear algebra: 64
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Back
+end used: [CUDA]; OS: [Linux]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Core
+s: [256]; Memory: [29,5GB];
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Blas
+ vendor: [CUBLAS]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build versio
+n: 11.6.124
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 1: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - Backend build informat
+ion:
+ GCC: "7.5.0"
+STD version: 201103L
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+Backend: JCublasBackend
+Available GPU devices: 2
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.deeplearning4j.nn.graph.ComputationGraph - Starting Computa
+tionGraph with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+>>> 2. Running Smoke Test (Fast)...
+Running 2048 games with 800 iterations.
+======================================================================
+               ALPHA ZERO TRAINING SESSION (OPTIMIZED)
+======================================================================
+Target Total Games: 2048
+Batch Size (GPU):   2048
+Num Batches:        1
+Concurrency:        Virtual Threads (Unlimited)
+>>> Starting Batch 1 with 2048 concurrent games...
+^CShutting down...
+aura:/home/xsvobo10/Project2-1-JanNguyen>$ nice -n 19 mvn clean compile exec:java -Pgpu -DskipTests -Dexec
+.mainClass="AI.AlphaZero.AlphaZeroRunner"
+[INFO] Scanning for projects...
+[INFO]
+[INFO] --------------------------< main:team04-app >---------------------------
+[INFO] Building team04-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- clean:3.2.0:clean (default-clean) @ team04-app ---
+[INFO] Deleting /home/xsvobo10/Project2-1-JanNguyen/target
+[INFO]
+[INFO] --- resources:3.3.0:resources (default-resources) @ team04-app ---
+[INFO] Copying 6 resources
+[INFO]
+[INFO] --- compiler:3.11.0:compile (default-compile) @ team04-app ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 45 source files with javac [debug release 21] to target/classes
+[INFO]
+[INFO] --- exec:3.3.0:java (default-cli) @ team04-app ---
+>>> 1. Initializing...
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.factory.Nd4jBackend - Loaded [JCublasBackend] b
+ackend
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.nativeblas.NativeOpsHolder - Number of threads used fo
+r linear algebra: 64
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Back
+end used: [CUDA]; OS: [Linux]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Core
+s: [256]; Memory: [29,5GB];
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Blas
+ vendor: [CUBLAS]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build versio
+n: 11.6.124
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 1: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - Backend build informat
+ion:
+ GCC: "7.5.0"
+STD version: 201103L
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+Backend: JCublasBackend
+Available GPU devices: 2
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.deeplearning4j.nn.graph.ComputationGraph - Starting Computa
+tionGraph with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+>>> 2. Running Smoke Test (Fast)...
+Running 64 games with 20 iterations.
+======================================================================
+               ALPHA ZERO TRAINING SESSION (OPTIMIZED)
+======================================================================
+Target Total Games: 64
+Batch Size (GPU):   2048
+Num Batches:        1
+Concurrency:        Virtual Threads (Unlimited)
+>>> Starting Batch 1 with 64 concurrent games...
+^CS[WARNING]
+java.lang.NumberFormatException: For input string: "0m"
+    at java.lang.NumberFormatException.forInputString (NumberFormatException.java:67)
+    at java.lang.Integer.parseInt (Integer.java:662)
+    at java.lang.Integer.valueOf (Integer.java:989)
+    at org.fusesource.jansi.io.AnsiOutputStream.write (AnsiOutputStream.java:199)
+    at java.io.FilterOutputStream.write (FilterOutputStream.java:139)
+    at java.io.PrintStream.implWrite (PrintStream.java:643)
+    at java.io.PrintStream.write (PrintStream.java:629)
+    at sun.nio.cs.StreamEncoder.writeBytes (StreamEncoder.java:309)
+    at sun.nio.cs.StreamEncoder.implFlushBuffer (StreamEncoder.java:405)
+    at sun.nio.cs.StreamEncoder.lockedFlushBuffer (StreamEncoder.java:123)
+    at sun.nio.cs.StreamEncoder.flushBuffer (StreamEncoder.java:110)
+    at java.io.OutputStreamWriter.flushBuffer (OutputStreamWriter.java:192)
+    at java.io.PrintStream.implWrite (PrintStream.java:812)
+    at java.io.PrintStream.write (PrintStream.java:796)
+    at java.io.PrintStream.print (PrintStream.java:1002)
+    at java.io.PrintStream.println (PrintStream.java:1171)
+    at AI.AlphaZero.AlphaZeroRunner.lambda$main$0 (AlphaZeroRunner.java:6)
+    at java.lang.Thread.run (Thread.java:1583)
+aura:/home/xsvobo10/Project2-1-JanNguyen>$ nice -n 19 mvn clean compile exec:java -Pgpu -DskipTests \
+  -Dexec.mainClass="AI.AlphaZero.AlphaZeroRunner" \
+  -Dexec.args="-Xmx32G -Xms32G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Dorg.bytedeco.javacpp.nopointergc=tr
+ue"
+[INFO] Scanning for projects...
+[INFO]
+[INFO] --------------------------< main:team04-app >---------------------------
+[INFO] Building team04-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- clean:3.2.0:clean (default-clean) @ team04-app ---
+[INFO] Deleting /home/xsvobo10/Project2-1-JanNguyen/target
+[INFO]
+[INFO] --- resources:3.3.0:resources (default-resources) @ team04-app ---
+[INFO] Copying 6 resources
+[INFO]
+[INFO] --- compiler:3.11.0:compile (default-compile) @ team04-app ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 45 source files with javac [debug release 21] to target/classes
+[INFO]
+[INFO] --- exec:3.3.0:java (default-cli) @ team04-app ---
+>>> 1. Initializing...
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.factory.Nd4jBackend - Loaded [JCublasBackend] b
+ackend
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.nativeblas.NativeOpsHolder - Number of threads used fo
+r linear algebra: 64
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Back
+end used: [CUDA]; OS: [Linux]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Core
+s: [256]; Memory: [29,5GB];
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Blas
+ vendor: [CUBLAS]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build versio
+n: 11.6.124
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 1: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - Backend build informat
+ion:
+ GCC: "7.5.0"
+STD version: 201103L
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+Backend: JCublasBackend
+Available GPU devices: 2
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.deeplearning4j.nn.graph.ComputationGraph - Starting Computa
+tionGraph with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+>>> 2. Running Smoke Test (Fast)...
+[WARNING]
+java.lang.NumberFormatException: For input string: "-Xmx32G"
+    at java.lang.NumberFormatException.forInputString (NumberFormatException.java:67)
+    at java.lang.Integer.parseInt (Integer.java:662)
+    at java.lang.Integer.parseInt (Integer.java:778)
+    at AI.AlphaZero.AlphaZeroRunner.main (AlphaZeroRunner.java:16)
+    at org.codehaus.mojo.exec.ExecJavaMojo.doMain (ExecJavaMojo.java:385)
+    at org.codehaus.mojo.exec.ExecJavaMojo.doExec (ExecJavaMojo.java:374)
+    at org.codehaus.mojo.exec.ExecJavaMojo.lambda$execute$0 (ExecJavaMojo.java:296)
+    at java.lang.Thread.run (Thread.java:1583)
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.678 s
+[INFO] Finished at: 2026-01-14T19:02:02+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.codehaus.mojo:exec-maven-plugin:3.3.0:java (default-cli) on project tea
+m04-app: An exception occurred while executing the Java class. For input string: "-Xmx32G" -> [Help 1]
+[ERROR]
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR]
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+Shutting down...
+aura:/home/xsvobo10/Project2-1-JanNguyen>$ export MAVEN_OPTS="-Xmx32G -Xms32G -XX:+UseG1GC"
+mvn clean compile exec:java -Pgpu -DskipTests ...
+[INFO] Scanning for projects...
+[INFO]
+[INFO] --------------------------< main:team04-app >---------------------------
+[INFO] Building team04-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.172 s
+[INFO] Finished at: 2026-01-14T19:03:00+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Unknown lifecycle phase "...". You must specify a valid lifecycle phase or a goal in the format <p
+lugin-prefix>:<goal> or <plugin-group-id>:<plugin-artifact-id>[:<plugin-version>]:<goal>. Available lifecy
+cle phases are: pre-clean, clean, post-clean, validate, initialize, generate-sources, process-sources, gen
+erate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources,
+ generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-packag
+e, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy, pre-si
+te, site, post-site, site-deploy. -> [Help 1]
+[ERROR]
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR]
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/LifecyclePhaseNotFoundException
+aura:/home/xsvobo10/Project2-1-JanNguyen>$ nice -n 19 mvn clean compile exec:java -Pgpu -DskipTests \
+  -Dexec.mainClass="AI.AlphaZero.AlphaZeroRunner" \
+  -Dexec.args="-Xmx32G -Xms32G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Dorg.bytedeco.javacpp.nopointergc=tr
+ue"
+[INFO] Scanning for projects...
+[INFO]
+[INFO] --------------------------< main:team04-app >---------------------------
+[INFO] Building team04-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- clean:3.2.0:clean (default-clean) @ team04-app ---
+[INFO] Deleting /home/xsvobo10/Project2-1-JanNguyen/target
+[INFO]
+[INFO] --- resources:3.3.0:resources (default-resources) @ team04-app ---
+[INFO] Copying 6 resources
+[INFO]
+[INFO] --- compiler:3.11.0:compile (default-compile) @ team04-app ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 45 source files with javac [debug release 21] to target/classes
+[INFO]
+[INFO] --- exec:3.3.0:java (default-cli) @ team04-app ---
+>>> 1. Initializing...
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.factory.Nd4jBackend - Loaded [JCublasBackend] b
+ackend
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.nativeblas.NativeOpsHolder - Number of threads used fo
+r linear algebra: 64
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Back
+end used: [CUDA]; OS: [Linux]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Core
+s: [256]; Memory: [32,0GB];
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Blas
+ vendor: [CUBLAS]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build versio
+n: 11.6.124
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 1: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - Backend build informat
+ion:
+ GCC: "7.5.0"
+STD version: 201103L
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+Backend: JCublasBackend
+Available GPU devices: 2
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.deeplearning4j.nn.graph.ComputationGraph - Starting Computa
+tionGraph with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+>>> 2. Running Smoke Test (Fast)...
+Running 64 games with 20 iterations.
+======================================================================
+               ALPHA ZERO TRAINING SESSION (OPTIMIZED)
+======================================================================
+Target Total Games: 64
+Batch Size (GPU):   2048
+Num Batches:        1
+Concurrency:        Virtual Threads (Unlimited)
+>>> Starting Batch 1 with 64 concurrent games...
+    [Batch 1] Game   50/64 finished.
+    [Batch 1] Game   64/64 finished.
+>>> All games in batch finished. Pausing batcher for training...
+>>> Training Network on 1467 positions...
+>>> 3. Finished.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:41 min
+[INFO] Finished at: 2026-01-14T19:05:13+01:00
+[INFO] ------------------------------------------------------------------------
+Shutting down...
+aura:/home/xsvobo10/Project2-1-JanNguyen>$ ls
+Board.png  hex_model_latest.zip  MainPanel.png  pom.xml  README.md  src  target
+aura:/home/xsvobo10/Project2-1-JanNguyen>$ nice -n 19 mvn clean compile exec:java -Pgpu -DskipTests \
+  -Dexec.mainClass="AI.AlphaZero.AlphaZeroRunner" \
+  -Dexec.args="-Xmx32G -Xms32G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Dorg.bytedeco.javacpp.nopointergc=tr
+ue"
+[INFO] Scanning for projects...
+[INFO]
+[INFO] --------------------------< main:team04-app >---------------------------
+[INFO] Building team04-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- clean:3.2.0:clean (default-clean) @ team04-app ---
+[INFO] Deleting /home/xsvobo10/Project2-1-JanNguyen/target
+[INFO]
+[INFO] --- resources:3.3.0:resources (default-resources) @ team04-app ---
+[INFO] Copying 6 resources
+[INFO]
+[INFO] --- compiler:3.11.0:compile (default-compile) @ team04-app ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 45 source files with javac [debug release 21] to target/classes
+[INFO]
+[INFO] --- exec:3.3.0:java (default-cli) @ team04-app ---
+>>> 1. Initializing...
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.factory.Nd4jBackend - Loaded [JCublasBackend] b
+ackend
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.nativeblas.NativeOpsHolder - Number of threads used fo
+r linear algebra: 64
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Back
+end used: [CUDA]; OS: [Linux]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Core
+s: [256]; Memory: [32,0GB];
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.api.ops.executioner.DefaultOpExecutioner - Blas
+ vendor: [CUBLAS]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build versio
+n: 11.6.124
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - CUDA device 1: [NVIDIA
+ A100 80GB PCIe]; cc: [8.0]; Total memory: [85094825984]
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.nd4j.linalg.jcublas.JCublasBackend - Backend build informat
+ion:
+ GCC: "7.5.0"
+STD version: 201103L
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+Backend: JCublasBackend
+Available GPU devices: 2
+[AI.AlphaZero.AlphaZeroRunner.main()] INFO org.deeplearning4j.nn.graph.ComputationGraph - Starting Computa
+tionGraph with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+>>> 2. Running Smoke Test (Fast)...
+Running 100000 games with 200 iterations.
+======================================================================
+               ALPHA ZERO TRAINING SESSION (OPTIMIZED)
+======================================================================
+Target Total Games: 100000
+Batch Size (GPU):   2048
+Num Batches:        49
+Concurrency:        Virtual Threads (Unlimited)
+>>> Starting Batch 1 with 2048 concurrent games...
+
+
+

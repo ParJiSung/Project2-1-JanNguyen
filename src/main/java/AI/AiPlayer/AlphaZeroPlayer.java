@@ -4,27 +4,77 @@ import java.io.IOException;
 
 import AI.AlphaZero.AlphaZeroMCTS;
 import AI.AlphaZero.AlphaZeroNet;
-import AI.mcts.MCTS;
-import AI.mcts.Node;
-import AI.mcts.HexGame.GameState;
+import AI.AlphaZero.MultiGpuBatcher;
 import AI.mcts.HexGame.Move;
-import AI.mcts.Optimazation.*;
-import AI.mcts.Optimazation.Heuristic.*;
-import AI.mcts.Steps.Expansion;
-import AI.mcts.Steps.Selection;
-import AI.mcts.Steps.SimulationStep.*;
+import AI.mcts.Node;
 import Game.Board;
-import Game.Player;
+import Game.Color;
 
-/**
- * AIPlayer class that uses Monte Carlo Tree Search (MCTS) to determine the best move.
- * Integrates the AI system with the game.
- *
- * @author Team 04
- */
-public class AlphaZeroPlayer  { // implements AIAgent, but add this later.
-    // The rest of this class still needs to be defined.
+public class AlphaZeroPlayer {
 
-    public AlphaZeroPlayer(String pathToModel, int boardSize, int iterations){
+    private final int boardSize;
+    private final int iterations;
+
+    private final AlphaZeroNet net;
+    private final MultiGpuBatcher batcher;
+    private final Thread batcherThread;
+    private final AlphaZeroMCTS mcts;
+
+    public AlphaZeroPlayer(String pathToModel, int boardSize, int iterations) {
+        this.boardSize = boardSize;
+        this.iterations = iterations;
+
+        try {
+            this.net = AlphaZeroNet.load(pathToModel, boardSize);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load model from: " + pathToModel, e);
+        }
+
+        // Evaluation doesn't need insane batch sizes.
+        int evalBatchSize = 1024;
+
+        this.batcher = new MultiGpuBatcher(net, evalBatchSize);
+        this.batcherThread = new Thread(batcher, "AZ-Batcher");
+        this.batcherThread.setDaemon(true);
+        this.batcherThread.start();
+
+        this.mcts = new AlphaZeroMCTS(batcher, boardSize);
+
+        // =========================
+        // STEP 3: EVAL MODE
+        // (Disable Dirichlet noise)
+        // =========================
+        this.mcts.setTrainingMode(false);
+    }
+
+    /**
+     * Call this from your match engine to get the next move.
+     */
+    public Move chooseMove(Board board, Color currentPlayer) {
+        Node root = mcts.search(board, currentPlayer, iterations);
+
+        // =========================
+        // STEP 4: GREEDY EVAL
+        // (temperature = 0 -> argmax)
+        // =========================
+        double temperature = 0.0;
+        double[] pi = mcts.getSearchPolicy(root, temperature);
+
+        int bestIdx = 0;
+        double best = -1.0;
+        for (int i = 0; i < pi.length; i++) {
+            if (pi[i] > best) {
+                best = pi[i];
+                bestIdx = i;
+            }
+        }
+
+        int row = bestIdx / boardSize;
+        int col = bestIdx % boardSize;
+        return Move.get(row, col);
+    }
+
+    public void shutdown() {
+        batcher.stop();
     }
 }

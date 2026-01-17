@@ -2,11 +2,37 @@ package AI.AlphaZero;
 
 public class AlphaZeroRunner {
     public static void main(String[] args) {
-        // Train on a board (specify the size in the constructor, I do not specify it here because this allows us to be a bit more flexible during testing without having to change the comments every time)
-        AlphaZeroTrainer trainer = new AlphaZeroTrainer(11);
-        
-        // TODO: Decide on the number of self-play games, batch size, and MCTS iterations per move.
-        // Run self-play games, with a number MCTS simulations per move to be specified below.
-        trainer.train(100_000, 200);
+    // Shutdown hook
+    Runtime.getRuntime().addShutdownHook(new Thread(() -> System.out.println("Shutting down...")));
+
+    System.out.println(">>> 1. Initializing...");
+    AlphaZeroTrainer trainer = new AlphaZeroTrainer(11); // 11
+    
+    System.out.println(">>> 2. Running Smoke Test (Fast)...");
+    
+    int games = 50_000;
+    int iterations = 50;
+    
+    // Robust argument parsing: find first two integers, ignore others (like JVM flags)
+    int integersFound = 0;
+    for (String arg : args) {
+        try {
+            int val = Integer.parseInt(arg);
+            if (integersFound == 0) {
+                games = val;
+                integersFound++;
+            } else if (integersFound == 1) {
+                iterations = val;
+                integersFound++;
+            }
+        } catch (NumberFormatException e) {
+            // Ignore non-integer arguments
+        }
     }
+    
+    System.out.println("Running " + games + " games with " + iterations + " iterations.");
+    trainer.train(games, iterations);
+    
+    System.out.println(">>> 3. Finished.");
+}
 }

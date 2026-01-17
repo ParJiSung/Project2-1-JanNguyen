@@ -2,43 +2,39 @@ package AI.AlphaZero;
 
 import Game.Board;
 import Game.Color;
-import org.nd4j.linalg.api.ndarray.INDArray;
-import org.nd4j.linalg.factory.Nd4j;
 
 public class BoardEncoder {
-    /**
-     * Converts the Hex Board into a format that the neural network understands. (A 3 plane format)
-     * Plane 0: Red Stones (1 if Red, 0 otherwise)
-     * Plane 1: Black Stones (1 if Black, 0 otherwise)
-     * Plane 2: Current Player (1 if Red to play, 0 if Black
-    */
-    public static INDArray encode(Board board, Color currentPlayer) {
+
+    public static float[] encode(Board board, Color currentPlayer) {
         int size = board.getSize();
+        int planeSize = size * size;
+        
+        // Allocate flat array: 3 planes * width * height
+        float[] flatData = new float[3 * planeSize];
 
-        // Shape: [BatchSize, Channels, Height, Width] -> [1, 3, size, size]
-        // BatchSize is 1 since we are encoding a single board state.
-        // Channels is 3 for the three planes described above.
-        // Height and Width are both equal to the board size.
-        INDArray convertedBoard = Nd4j.zeros(1, 3, size, size);
+        int offsetRed = 0;
+        int offsetBlack = planeSize;
+        int offsetTurn = 2 * planeSize;
 
+        // Fill array using standard Java loops (Extremely fast L1 cache access)
         for (int row = 0; row < size; row++) {
             for (int col = 0; col < size; col++) {
-                Color cell = board.getCell(row, col); // Get the color of the cell at (row, col)
+                Color cell = board.getCell(row, col);
+                int idx = row * size + col;
 
                 if (cell == Color.RED) {
-                    // Batch is 0 since we only encode 1 board state, and plane 0 indicates Red stones.
-                    convertedBoard.putScalar(0, 0, row, col, 1.0);
+                    flatData[offsetRed + idx] = 1.0f;
                 } else if (cell == Color.BLACK) {
-                    // Plane 1 indicates Black stones.
-                    convertedBoard.putScalar(0, 1, row, col, 1.0);
+                    flatData[offsetBlack + idx] = 1.0f;
                 }
-                
-                // Plane 2 indicates whose turn it is
-                // If it is RED's turn, fill the whole plane with 1s.
-                double turnValue = (currentPlayer == Color.RED) ? 1.0 : 0.0;
-                convertedBoard.putScalar(0, 2, row, col, turnValue);
+
+                // Plane 3: Current player indicator (Fill entire plane)
+                if (currentPlayer == Color.RED) {
+                    flatData[offsetTurn + idx] = 1.0f;
+                }
             }
         }
-        return convertedBoard;
+        
+        return flatData;
     }
 }

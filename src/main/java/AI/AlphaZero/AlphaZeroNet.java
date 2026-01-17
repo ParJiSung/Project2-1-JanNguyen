@@ -29,6 +29,8 @@ public class AlphaZeroNet {
         initModel(); // Method to build the neural network structure.
     }
 
+    public int getBoardSize() { return boardSize; }
+
     /**
      * Initializes the neural network model with convolutional layers and two output heads (policy and value).
      */

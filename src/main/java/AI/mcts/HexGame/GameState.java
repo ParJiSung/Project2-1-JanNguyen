@@ -1,4 +1,3 @@
-// AI/mcts/GameState.java
 package AI.mcts.HexGame;
 
 import Game.*;
@@ -27,7 +26,8 @@ public class GameState {
     }
 
     public Player getToMove(){
-        return toMove;}
+        return toMove;
+    }
 
     public Board getBoard(){
         return board;
@@ -36,7 +36,8 @@ public class GameState {
     public List<Move> getLegalMoves() {
         List<Move> out = new ArrayList<>();
         for (int[] rc : board.legalMoves()) {
-            out.add(new Move(rc[0], rc[1]));
+            // FIX: Use the Flyweight/Cache factory 'get' instead of 'new'
+            out.add(Move.get(rc[0], rc[1]));
         }
         return out;
     }
@@ -59,9 +60,9 @@ public class GameState {
         recomputeTerminal();
     }
     
-
     public GameState copy() {
-        Board board2 = board.copyBoard(board);
+        // OPTIMIZATION: Use the fast memory copy we just created
+        Board board2 = board.fastCopy();
         return new GameState(board2, toMove);
     }
 
@@ -93,7 +94,6 @@ public class GameState {
     public int estimateShortestPathForCurrentPlayer() {
         return ShortestPath.shortestPath(board, toColor(toMove));
     }
-
 
     //optional helper if you  need path for a specific player
     public int estimateShortestPathForPlayer(Player p) {
